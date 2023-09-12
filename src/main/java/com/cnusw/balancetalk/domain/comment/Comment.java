@@ -1,7 +1,7 @@
 package com.cnusw.balancetalk.domain.comment;
 
 import com.cnusw.balancetalk.domain.game.Game;
-import com.cnusw.balancetalk.domain.user.Member;
+import com.cnusw.balancetalk.domain.member.Member;
 import com.cnusw.balancetalk.global.common.BaseTimeEntity;
 
 import jakarta.persistence.Column;
