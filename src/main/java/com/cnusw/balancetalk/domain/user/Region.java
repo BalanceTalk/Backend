@@ -1,4 +1,4 @@
-package com.cnusw.balancetalk.domain.player;
+package com.cnusw.balancetalk.domain.user;
 
 public enum Region {
 

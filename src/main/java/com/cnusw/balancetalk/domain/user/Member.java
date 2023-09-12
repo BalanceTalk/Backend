@@ -1,4 +1,4 @@
-package com.cnusw.balancetalk.domain.player;
+package com.cnusw.balancetalk.domain.user;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,11 +24,11 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 @Builder
-public class Player {
+public class Member {
 
     @Id
     @GeneratedValue
-    @Column(name = "player_id")
+    @Column(name = "member_id")
     private Long id;
 
     @Column(nullable = false)
@@ -44,12 +44,12 @@ public class Player {
     @Enumerated(EnumType.STRING)
     private Region region;
 
-    @OneToMany(mappedBy = "player")
+    @OneToMany(mappedBy = "member")
     private List<Game> games = new ArrayList<>();
 
-    @OneToMany(mappedBy = "player")
+    @OneToMany(mappedBy = "member")
     private List<Comment> comments = new ArrayList<>();
 
-    @OneToOne(mappedBy = "player")
+    @OneToOne(mappedBy = "member")
     private Vote vote;
 }

@@ -39,6 +39,6 @@ public class Option {
     @JoinColumn(name = "game_id")
     private Game game;
 
-    @OneToOne(mappedBy = "option")
+    @OneToOne(mappedBy = "option", fetch = FetchType.LAZY)
     private Vote vote;
 }

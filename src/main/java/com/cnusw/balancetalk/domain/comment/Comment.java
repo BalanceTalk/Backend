@@ -1,7 +1,7 @@
 package com.cnusw.balancetalk.domain.comment;
 
 import com.cnusw.balancetalk.domain.game.Game;
-import com.cnusw.balancetalk.domain.player.Player;
+import com.cnusw.balancetalk.domain.user.Member;
 import com.cnusw.balancetalk.global.common.BaseTimeEntity;
 
 import jakarta.persistence.Column;
@@ -39,6 +39,6 @@ public class Comment extends BaseTimeEntity {
     private Game game;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "player_id")
-    private Player player;
+    @JoinColumn(name = "member_id")
+    private Member member;
 }

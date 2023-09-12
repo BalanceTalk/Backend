@@ -6,7 +6,7 @@ import java.util.List;
 
 import com.cnusw.balancetalk.domain.comment.Comment;
 import com.cnusw.balancetalk.domain.option.Option;
-import com.cnusw.balancetalk.domain.player.Player;
+import com.cnusw.balancetalk.domain.user.Member;
 import com.cnusw.balancetalk.global.common.BaseTimeEntity;
 
 import jakarta.persistence.Column;
@@ -50,6 +50,6 @@ public class Game extends BaseTimeEntity {
     private List<Comment> comments = new ArrayList<>();
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "player_id")
-    private Player player;
+    @JoinColumn(name = "user_id")
+    private Member member;
 }
