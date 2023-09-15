@@ -1,4 +1,4 @@
-package com.cnusw.balancetalk.domain.game;
+package com.cnusw.balancetalk.domain.game.entity;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;

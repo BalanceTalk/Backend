@@ -1,6 +1,6 @@
 package com.cnusw.balancetalk.domain.option;
 
-import com.cnusw.balancetalk.domain.game.Game;
+import com.cnusw.balancetalk.domain.game.entity.Game;
 import com.cnusw.balancetalk.domain.vote.Vote;
 
 import jakarta.persistence.Column;
