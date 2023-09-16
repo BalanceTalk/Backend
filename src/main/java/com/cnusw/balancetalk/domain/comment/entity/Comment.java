@@ -1,4 +1,4 @@
-package com.cnusw.balancetalk.domain.comment;
+package com.cnusw.balancetalk.domain.comment.entity;
 
 import com.cnusw.balancetalk.domain.game.entity.Game;
 import com.cnusw.balancetalk.domain.member.Member;

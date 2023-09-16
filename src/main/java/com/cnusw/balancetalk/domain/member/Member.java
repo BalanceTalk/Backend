@@ -3,7 +3,7 @@ package com.cnusw.balancetalk.domain.member;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.cnusw.balancetalk.domain.comment.Comment;
+import com.cnusw.balancetalk.domain.comment.entity.Comment;
 import com.cnusw.balancetalk.domain.game.entity.Game;
 import com.cnusw.balancetalk.domain.vote.Vote;
 

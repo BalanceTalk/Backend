@@ -4,7 +4,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.cnusw.balancetalk.domain.comment.Comment;
+import com.cnusw.balancetalk.domain.comment.entity.Comment;
 import com.cnusw.balancetalk.domain.option.Option;
 import com.cnusw.balancetalk.domain.member.Member;
 import com.cnusw.balancetalk.global.common.BaseTimeEntity;
