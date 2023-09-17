@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.cnusw.balancetalk.domain.comment.Comment;
-import com.cnusw.balancetalk.domain.option.Option;
+import com.cnusw.balancetalk.domain.option.entity.Option;
 import com.cnusw.balancetalk.domain.member.Member;
 import com.cnusw.balancetalk.global.common.BaseTimeEntity;
 
@@ -17,14 +17,12 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 @Entity
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
+@Getter
 @Builder
 public class Game extends BaseTimeEntity {
 
