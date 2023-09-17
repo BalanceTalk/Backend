@@ -1,4 +1,4 @@
-package com.cnusw.balancetalk.domain.option;
+package com.cnusw.balancetalk.domain.option.entity;
 
 import com.cnusw.balancetalk.domain.game.entity.Game;
 import com.cnusw.balancetalk.domain.vote.Vote;
@@ -11,14 +11,12 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToOne;
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 @Entity
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
+@Getter
 @Builder
 public class Option {
 
