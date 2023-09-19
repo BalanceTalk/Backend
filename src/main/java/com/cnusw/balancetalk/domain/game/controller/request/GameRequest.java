@@ -20,7 +20,6 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class GameRequest {
-    //private String user_id;
     @NotNull
     private String title;
     //@NotNull

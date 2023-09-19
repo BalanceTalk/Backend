@@ -26,7 +26,7 @@ public class GameService {
 
     //게임 제작
     @Transactional
-    public Long CreateGame(GameRequest gameRequest){
+    public Long CreateGame(GameRequest gameRequest) {
         Game game = Game.builder()
                 .title(gameRequest.getTitle())
                 //.deadline(gameRequest.getDeadline())
@@ -36,14 +36,13 @@ public class GameService {
         return gameRepository.save(game).getId();
     }
 
-    //게임 목록 모두 조회
-    /*
-    public List<GameResponse> getGameListAll(Long gameId){
-        List<Game> gameListAll = gameRepository.findAllByGameId(gameId);
+    //게임 목록 페이지 [게임 목록 모두 불러옴]
+    public List<GameResponse> getGameListAll(Long gameId) {
+        List<Game> gameListAll = gameRepository.findAllById(gameId);
 
         List<GameResponse> gameResponseListAll = new ArrayList<>();
         gameListAll.forEach(
-                (game->{
+                (game -> {
                     gameResponseListAll.add(
                             GameResponse.builder()
                                     .game_id(game.getId())
@@ -54,10 +53,10 @@ public class GameService {
                                     .options(game.getOptions())
                                     .build()
                     );
-                 })
+                })
         );
-
         return gameResponseListAll;
-        */
     }
+
+}
 
