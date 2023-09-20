@@ -1,14 +1,11 @@
 package com.cnusw.balancetalk.domain.game.controller.request;
 
 
-import com.cnusw.balancetalk.domain.comment.Comment;
-import com.cnusw.balancetalk.domain.option.entity.Option;
-import jakarta.validation.constraints.NotBlank;
+import com.cnusw.balancetalk.domain.option.entity.Option;;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.springframework.stereotype.Repository;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -22,8 +19,10 @@ import java.util.List;
 public class GameRequest {
     @NotNull
     private String title;
-    //@NotNull
-    //private LocalDateTime deadline;
-    //@NotNull
-    //private List<Option> options;
+    @NotNull
+    private LocalDateTime deadline;
+    @NotNull
+    private List<Option> options;
+
+
 }

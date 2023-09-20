@@ -36,6 +36,7 @@ public class Game extends BaseTimeEntity {
     private String title;
 
     @Column(nullable = false)
+
     private LocalDateTime deadline;
 
     private long playerCount;
