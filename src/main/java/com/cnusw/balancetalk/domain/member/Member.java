@@ -5,9 +5,9 @@ import java.util.List;
 
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-import com.cnusw.balancetalk.domain.comment.Comment;
-import com.cnusw.balancetalk.domain.game.Game;
 import com.cnusw.balancetalk.domain.member.dto.request.MemberJoinRequest;
+import com.cnusw.balancetalk.domain.comment.entity.Comment;
+import com.cnusw.balancetalk.domain.game.entity.Game;
 import com.cnusw.balancetalk.domain.vote.Vote;
 import com.cnusw.balancetalk.global.common.BaseTimeEntity;
 import com.cnusw.balancetalk.global.enums.Region;
@@ -28,6 +28,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Entity
+@Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 @Builder
