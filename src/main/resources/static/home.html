@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>홈 화면</title>
+</head>
+<body>
+<h1>게임 홈 화면</h1>
+<div>
+  <a th:href="@{/register}">회원가입</a>
+  <a th:href="@{/login}">로그인</a>
+</div>
+
+<h2>게임 리스트</h2>
+<ul>
+  <li th:each="game : ${gameResponseListAll}">
+    <p th:text="${game.title}"></p>
+    <!-- 게임의 다른 속성도 표시하려면 여기에 추가 -->
+  </li>
+</ul>
+
+</body>
+</html>

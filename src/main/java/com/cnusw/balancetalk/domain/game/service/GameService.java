@@ -23,7 +23,10 @@ import java.util.List;
 public class GameService {
     private final GameRepository gameRepository;
     private final OptionRepository optionRepository;
-
+//    public GameService(GameRepository gameRepository,OptionRepository optionRepository) {
+//        this.gameRepository = gameRepository;
+//        this.optionRepository = optionRepository;
+//    }
     //게임 제작
     @Transactional
     public Long CreateGame(GameRequest gameRequest){
@@ -36,6 +39,29 @@ public class GameService {
         return gameRepository.save(game).getId();
     }
 
+    public Iterable<Game> getAllGames() {
+        return gameRepository.findAll();
+    }
+    // 게임 목록 모두 조회
+    public List<GameResponse> getGameListAll() {
+        Iterable<Game> gameListAll = gameRepository.findAll();
+
+        List<GameResponse> gameResponseListAll = new ArrayList<>();
+        gameListAll.forEach((game) -> {
+            gameResponseListAll.add(
+                    GameResponse.builder()
+                            .game_id(game.getId())
+                            .user_id(game.getMember().getId())
+                            .title(game.getTitle())
+                            .playerCount(game.getPlayerCount())
+                            .likes(game.getLikes())
+                            .options(game.getOptions())
+                            .build()
+            );
+        });
+
+        return gameResponseListAll;
+    }
     //게임 목록 모두 조회
     /*
     public List<GameResponse> getGameListAll(Long gameId){
