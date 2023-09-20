@@ -53,9 +53,11 @@ public class Member extends BaseTimeEntity {
     @Enumerated(EnumType.STRING)
     private Region region;
 
+    @Builder.Default
     @OneToMany(mappedBy = "member")
     private List<Game> games = new ArrayList<>();
 
+    @Builder.Default
     @OneToMany(mappedBy = "member")
     private List<Comment> comments = new ArrayList<>();
 
