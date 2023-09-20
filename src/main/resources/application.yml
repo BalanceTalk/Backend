@@ -1,24 +1,24 @@
 spring:
   datasource:
-    url: jdbc:h2:tcp://localhost/~/balancetalk
+    #    url: jdbc:h2:~/balancetalk
+    url: jdbc:h2:~/test
     username: sa
     password:
     driver-class-name: org.h2.Driver
 
   jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
     hibernate:
       ddl-auto: create
     properties:
       hibernate:
         format_sql: true
-    defer-datasource-initialization: true
+
+  h2:
+    console:
+      enabled: true # H2 Console을 사용할지 여부 (H2 Console은 H2 Database를 UI로 제공해주는 기능)
+      path: /h2-console # H2 Console의 Path
 
 logging:
   level:
     org.hibernate.SQL: debug
-
-jwt:
-  header: Authorization
-  # HS512 알고리즘을 사용할 것이기 때문에 512bit, 즉 64byte 이상의 secret key를 사용해야 한다.
-  secret: c2lsdmVybmluZS10ZWNoLXNwcmluZy1ib290LWp3dC10dXRvcmlhbC1zZWNyZXQtc2lsdmVybmluZS10ZWNoLXNwcmluZy1ib290LWp3dC10dXRvcmlhbC1zZWNyZXQK
-  token-expired-seconds: 3600
