@@ -28,10 +28,12 @@ public class GameService {
     //게임 제작
     @Transactional
     public Long CreateGame(GameRequest gameRequest) {
+/*        Option.builder()
+                .title(gameRequest.getOptionTitle1)*/
         Game game = Game.builder()
                 .title(gameRequest.getTitle())
-                //.deadline(gameRequest.getDeadline())
-                //.options(option)
+                .deadline(gameRequest.getDeadline())
+                //.options(options)
                 .build();
         //일대다 매핑이 된 부분은 list타입으로 되어있는데, 서비스단에 어떻게 구현해야할 지 모르겠음
         return gameRepository.save(game).getId();
@@ -44,8 +46,7 @@ public class GameService {
 
     //게임 목록 페이지
     public List<Game> getGameListAll() {
-        List<Game> gameListAll = gameRepository.findAll();
-        return gameListAll;
+        return gameRepository.findAll();
     }
 
 }

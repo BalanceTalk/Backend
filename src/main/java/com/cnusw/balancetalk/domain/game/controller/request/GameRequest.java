@@ -20,8 +20,8 @@ public class GameRequest {
     private String title;
     @NotNull
     private LocalDateTime deadline;
-    @NotNull
-    private List<Option> options;
+
+    //Option1, Option2 단일필드로 분리
 
 
 }

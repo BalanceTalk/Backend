@@ -18,7 +18,7 @@ import java.util.Optional;
 public class CommentController {
     private final CommentService commentService;
 
-    @GetMapping("games/{id}")
+    @GetMapping("/games/{id}")
     public List<Comment> getComments() {
         return commentService.getCommentsService();
     }

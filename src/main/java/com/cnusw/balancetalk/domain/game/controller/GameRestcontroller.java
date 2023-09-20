@@ -21,6 +21,7 @@ public class GameRestcontroller {
     public ResponseEntity<Long> Create(@RequestBody GameRequest request){
         return ResponseEntity.ok(gameService.CreateGame(request));
     }
+    
     /**
      *
      * 선택지 투표 페이지랑 / 게임 페이지 중복 되는것같은데..??
