@@ -1,6 +1,5 @@
 package com.cnusw.balancetalk.domain.vote;
 
-import com.cnusw.balancetalk.domain.option.entity.Option;
 import com.cnusw.balancetalk.domain.member.Member;
 
 import jakarta.persistence.Column;
@@ -26,9 +25,10 @@ public class Vote {
     @Column(name = "vote_id")
     private Long id;
 
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "option_id")
-    private Option option;
+    private boolean isVotedFirstOption;
+    private boolean isVotedSecondOption;
+
+    private Long voterId;
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id")

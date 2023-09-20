@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.cnusw.balancetalk.domain.comment.Comment;
-import com.cnusw.balancetalk.domain.option.entity.Option;
 import com.cnusw.balancetalk.domain.member.Member;
 import com.cnusw.balancetalk.global.common.BaseTimeEntity;
 
@@ -41,8 +40,25 @@ public class Game extends BaseTimeEntity {
 
     private long likes;
 
-    @OneToMany(mappedBy = "game")
-    private List<Option> options = new ArrayList<>();
+    // Option 엔티티 대체
+    private Long firstOptionId;
+    private Long secondOptionId;
+
+    @Setter
+    private int firstOptionVotedCount;
+    @Setter
+    private int secondOptionVotedCount;
+
+    @Column(nullable = false, length = 30)
+    private String firstOptionTitle;
+    @Column(nullable = false, length = 30)
+    private String secondOptionTitle;
+
+    private String firstOptionDescription;
+    private String secondOptionDescription;
+
+    private String firstOptionImgUrl;
+    private String secondOptionImgUrl;
 
     @OneToMany(mappedBy = "game")
     private List<Comment> comments = new ArrayList<>();
@@ -50,4 +66,5 @@ public class Game extends BaseTimeEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private Member member;
+
 }

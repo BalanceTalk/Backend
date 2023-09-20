@@ -2,7 +2,6 @@ package com.cnusw.balancetalk.domain.game.service.Dto;
 
 
 import com.cnusw.balancetalk.domain.comment.Comment;
-import com.cnusw.balancetalk.domain.option.entity.Option;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -22,6 +21,5 @@ public class GameDto {
     private LocalDateTime deadline;
     private long playerCount;
     private long likes;
-    private List<Option> options;
     private List<Comment> comments;
 }

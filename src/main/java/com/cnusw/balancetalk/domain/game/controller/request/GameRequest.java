@@ -2,7 +2,6 @@ package com.cnusw.balancetalk.domain.game.controller.request;
 
 
 import com.cnusw.balancetalk.domain.comment.Comment;
-import com.cnusw.balancetalk.domain.option.entity.Option;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
