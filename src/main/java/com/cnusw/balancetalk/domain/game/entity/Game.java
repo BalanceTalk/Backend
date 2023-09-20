@@ -4,7 +4,6 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-
 import com.cnusw.balancetalk.domain.comment.entity.Comment;
 import com.cnusw.balancetalk.domain.option.entity.Option;
 import com.cnusw.balancetalk.domain.member.Member;
@@ -42,9 +41,11 @@ public class Game extends BaseTimeEntity {
 
     private long likes;
 
+    @Builder.Default
     @OneToMany(mappedBy = "game")
     private List<Option> options = new ArrayList<>();
 
+    @Builder.Default
     @OneToMany(mappedBy = "game")
     private List<Comment> comments = new ArrayList<>();
 
