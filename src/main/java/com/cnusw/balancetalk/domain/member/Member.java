@@ -28,10 +28,10 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 @Builder
+@Getter
 public class Member extends BaseTimeEntity {
 
     @Id
@@ -53,9 +53,11 @@ public class Member extends BaseTimeEntity {
     @Enumerated(EnumType.STRING)
     private Region region;
 
+    @Builder.Default
     @OneToMany(mappedBy = "member")
     private List<Game> games = new ArrayList<>();
 
+    @Builder.Default
     @OneToMany(mappedBy = "member")
     private List<Comment> comments = new ArrayList<>();
 
