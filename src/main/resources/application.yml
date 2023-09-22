@@ -22,3 +22,7 @@ spring:
 logging:
   level:
     org.hibernate.SQL: debug
+
+jwt:
+  secret: thisissecretkalsdjflkawjfoiqjweofjasdoijfoiqwejfoiweqjofijqwoeifjqwoeifjqoweifjoqwiejfoqwiejfofiqewj
+  token-expired-seconds: 10000
