@@ -8,7 +8,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import com.cnusw.balancetalk.domain.member.dto.request.MemberJoinRequest;
 import com.cnusw.balancetalk.domain.comment.entity.Comment;
 import com.cnusw.balancetalk.domain.game.entity.Game;
-import com.cnusw.balancetalk.domain.vote.Vote;
+import com.cnusw.balancetalk.domain.vote.entity.Vote;
 import com.cnusw.balancetalk.global.common.BaseTimeEntity;
 import com.cnusw.balancetalk.domain.member.enums.Region;
 

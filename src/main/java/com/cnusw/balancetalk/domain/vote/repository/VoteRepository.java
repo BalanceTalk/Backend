@@ -1,6 +1,6 @@
-package com.cnusw.balancetalk.domain.game.repository;
+package com.cnusw.balancetalk.domain.vote.repository;
 
-import com.cnusw.balancetalk.domain.vote.Vote;
+import com.cnusw.balancetalk.domain.vote.entity.Vote;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

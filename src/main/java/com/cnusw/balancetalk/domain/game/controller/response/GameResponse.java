@@ -6,7 +6,8 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import java.util.List;
+import com.cnusw.balancetalk.domain.game.entity.Game;
+
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
@@ -17,4 +18,13 @@ public class GameResponse {
     private String title;
     private long playerCount;
     private long likes;
+
+    public static GameResponse from(Game game) {
+        return GameResponse.builder()
+                .game_id(game.getId())
+                .title(game.getTitle())
+                .playerCount(game.getPlayerCount())
+                .likes(game.getLikes())
+                .build();
+    }
 }

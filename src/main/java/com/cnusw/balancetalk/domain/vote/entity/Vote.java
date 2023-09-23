@@ -1,4 +1,4 @@
-package com.cnusw.balancetalk.domain.vote;
+package com.cnusw.balancetalk.domain.vote.entity;
 
 import com.cnusw.balancetalk.domain.member.entity.Member;
 import com.cnusw.balancetalk.domain.option.entity.Option;

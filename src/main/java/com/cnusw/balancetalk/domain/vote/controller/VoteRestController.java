@@ -1,6 +1,6 @@
-package com.cnusw.balancetalk.domain.game.controller;
+package com.cnusw.balancetalk.domain.vote.controller;
 
-import com.cnusw.balancetalk.domain.game.service.VoteService;
+import com.cnusw.balancetalk.domain.vote.service.VoteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

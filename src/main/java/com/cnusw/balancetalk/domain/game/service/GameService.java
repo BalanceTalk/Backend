@@ -1,36 +1,52 @@
 package com.cnusw.balancetalk.domain.game.service;
 
 
+
 import com.cnusw.balancetalk.domain.game.controller.request.GameRequest;
 import com.cnusw.balancetalk.domain.game.controller.response.GameResponse;
 import com.cnusw.balancetalk.domain.game.entity.Game;
 import com.cnusw.balancetalk.domain.game.repository.GameRepository;
 import com.cnusw.balancetalk.domain.member.entity.Member;
+import com.cnusw.balancetalk.domain.member.repository.MemberRepository;
+import com.cnusw.balancetalk.domain.member.service.MemberService;
 import com.cnusw.balancetalk.domain.option.entity.Option;
 import com.cnusw.balancetalk.domain.option.repository.OptionRepository;
+import com.cnusw.balancetalk.global.jwt.JwtUtil;
+
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.StringUtils;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-@Transactional(readOnly=false)
+@Transactional
 public class GameService {
-    private final GameRepository gameRepository;
 
+    private static final String TOKEN_PREFIX = "Bearer ";
+
+    private final GameRepository gameRepository;
     private final OptionRepository optionRepository;
-//    public GameService(GameRepository gameRepository,OptionRepository optionRepository) {
-//        this.gameRepository = gameRepository;
-//        this.optionRepository = optionRepository;
-//    }
+    private final MemberRepository memberRepository;
+    private final JwtUtil jwtUtil;
 
     //게임 제작
-    @Transactional
-    public Long CreateGame(GameRequest gameRequest) {
+    public Long createGame(GameRequest gameRequest, HttpServletRequest servletRequest) {
+        String bearerToken = servletRequest.getHeader("Authorization");
+
+        String token = "";
+        if (StringUtils.hasText(bearerToken) && bearerToken.startsWith(TOKEN_PREFIX)) {
+            token = bearerToken.substring(TOKEN_PREFIX.length());
+        }
+
+        String email = jwtUtil.extractSubject(token);
+        Member member = memberRepository.findByEmail(email).orElseThrow();
+
         Option option1 = Option.builder()
                 .title(gameRequest.getOptionTitle1())
                 .description(gameRequest.getOptionDescription1())
@@ -43,6 +59,10 @@ public class GameService {
                 .imgUrl(gameRequest.getOptionImgUrl2())
                 .build();
 
+        // 영속성 전이 적용하기
+        optionRepository.save(option1);
+        optionRepository.save(option2);
+
         List<Option> options = new ArrayList<>();
         options.add(option1);
         options.add(option2);
@@ -51,9 +71,17 @@ public class GameService {
                 .title(gameRequest.getTitle())
                 .deadline(gameRequest.getDeadline())
                 .options(options)
+                .member(member)
                 .build();
 
-        return gameRepository.save(game).getId();
+        Game saved = gameRepository.save(game);
+
+        return saved.getId();
+    }
+
+    public GameResponse findById(Long id) {
+        Game game = gameRepository.findById(id).orElseThrow();
+        return GameResponse.from(game);
     }
 
     public List<GameResponse> getGamesSortedByPopularity() {
@@ -96,57 +124,5 @@ public class GameService {
                 .user_id(member.getId())
                 .build();
     }
-    //게임 목록 모두 조회
-    /*
-    public List<GameResponse> getGameListAll(Long gameId){
-        List<Game> gameListAll = gameRepository.findAllByGameId(gameId);
-
-        List<GameResponse> gameResponseListAll = new ArrayList<>();
-        gameListAll.forEach(
-                (game->{
-                    gameResponseListAll.add(
-                            GameResponse.builder()
-                                    .game_id(game.getId())
-                                    .user_id(game.getMember().getId())
-                                    .title(game.getTitle())
-                                    .playerCount(game.getPlayerCount())
-                                    .likes(game.getLikes())
-                                    .options(game.getOptions())
-                                    .build()
-                    );
-                 })
-        );
-
-        return gameResponseListAll;
-        */
-    //게임 화면 페이지
-    public List<Game> getAllGames() {
-        return gameRepository.findAll();
-    }
-    //게임 목록 모두 조회
-    /*
-    public List<GameResponse> getGameListAll(Long gameId){
-        List<Game> gameListAll = gameRepository.findAllByGameId(gameId);
-
-        List<GameResponse> gameResponseListAll = new ArrayList<>();
-        gameListAll.forEach(
-                (game->{
-                    gameResponseListAll.add(
-                            GameResponse.builder()
-                                    .game_id(game.getId())
-                                    .user_id(game.getMember().getId())
-                                    .title(game.getTitle())
-                                    .playerCount(game.getPlayerCount())
-                                    .likes(game.getLikes())
-                                    .options(game.getOptions())
-                                    .build()
-                    );
-                 })
-        );
-
-        return gameResponseListAll;
-        */
-
-
 }
 

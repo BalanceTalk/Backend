@@ -1,9 +1,9 @@
-package com.cnusw.balancetalk.domain.game.service;
+package com.cnusw.balancetalk.domain.vote.service;
 
 import com.cnusw.balancetalk.domain.game.entity.Game;
 import com.cnusw.balancetalk.domain.game.repository.GameRepository;
-import com.cnusw.balancetalk.domain.game.repository.VoteRepository;
-import com.cnusw.balancetalk.domain.vote.Vote;
+import com.cnusw.balancetalk.domain.vote.repository.VoteRepository;
+import com.cnusw.balancetalk.domain.vote.entity.Vote;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

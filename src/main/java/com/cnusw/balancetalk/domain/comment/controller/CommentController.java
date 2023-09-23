@@ -20,7 +20,7 @@ public class CommentController {
     private final CommentService commentService;
     private final MemberService memberService;
 
-    @GetMapping("/games/{id}")
+    @GetMapping("/games/{id}/result")
     public List<Comment> getComments() {
         return commentService.getCommentsService();
     }
