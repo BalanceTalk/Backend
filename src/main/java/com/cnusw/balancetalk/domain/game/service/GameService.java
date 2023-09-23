@@ -61,25 +61,25 @@ public class GameService {
         return gameRepository.findAll();
     }
     // 게임 목록 모두 조회
-    public List<GameResponse> getGameListAll() {
-        Iterable<Game> gameListAll = gameRepository.findAll();
-
-        List<GameResponse> gameResponseListAll = new ArrayList<>();
-        gameListAll.forEach((game) -> {
-            gameResponseListAll.add(
-                    GameResponse.builder()
-                            .game_id(game.getId())
-                            .user_id(game.getMember().getId())
-                            .title(game.getTitle())
-                            .playerCount(game.getPlayerCount())
-                            .likes(game.getLikes())
-                            .options(game.getOptions())
-                            .build()
-            );
-        });
-
-        return gameResponseListAll;
-    }
+//    public List<GameResponse> getGameListAll() {
+//        Iterable<Game> gameListAll = gameRepository.findAll();
+//
+//        List<GameResponse> gameResponseListAll = new ArrayList<>();
+//        gameListAll.forEach((game) -> {
+//            gameResponseListAll.add(
+//                    GameResponse.builder()
+//                            .game_id(game.getId())
+//                            .user_id(game.getMember().getId())
+//                            .title(game.getTitle())
+//                            .playerCount(game.getPlayerCount())
+//                            .likes(game.getLikes())
+//                            .options(game.getOptions())
+//                            .build()
+//            );
+//        });
+//
+//        return gameResponseListAll;
+//    }
     public List<GameResponse> getGamesSortedByPopularity() {
         // 인기순
         Sort sort = Sort.by(Sort.Order.desc("likes"));
