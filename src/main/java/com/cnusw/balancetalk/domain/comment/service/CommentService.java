@@ -1,6 +1,7 @@
 package com.cnusw.balancetalk.domain.comment.service;
 
 import com.cnusw.balancetalk.domain.comment.dto.request.CommentRequest;
+import com.cnusw.balancetalk.domain.comment.dto.response.CommentResponse;
 import com.cnusw.balancetalk.domain.comment.entity.Comment;
 import com.cnusw.balancetalk.domain.comment.repository.CommentRepository;
 import com.cnusw.balancetalk.domain.member.repository.MemberRepository;
@@ -10,14 +11,18 @@ import com.cnusw.balancetalk.domain.member.entity.Member;
 import com.cnusw.balancetalk.global.jwt.JwtUtil;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class CommentService {
     private final CommentRepository commentRepository;
     private final GameRepository gameRepository;
@@ -26,11 +31,16 @@ public class CommentService {
     private static final String TOKEN_PREFIX = "Bearer ";
     private final JwtUtil jwtUtil;
 
-    public List<Comment> getCommentsService() {
-        return commentRepository.findAll();
+    public List<CommentResponse> getCommentsService(Long gameId) {
+        Game game = gameRepository.findById(gameId).orElseThrow();
+        log.info("comments={}",game.getComments());
+
+        return game.getComments().stream()
+                .map(CommentResponse::of)
+                .collect(Collectors.toList());
     }
 
-    public Optional<Comment> makingComment(CommentRequest commentRequest, HttpServletRequest servletRequest, Long gameId) {
+    public Optional<Comment> makingComment(Long gameId, CommentRequest commentRequest, HttpServletRequest servletRequest) {
 
         String token = extractToken(servletRequest);
         String memberEmail = extractEmailFromToken(token);

@@ -1,5 +1,6 @@
 package com.cnusw.balancetalk.domain.comment.controller;
 
+import com.cnusw.balancetalk.domain.comment.dto.response.CommentResponse;
 import com.cnusw.balancetalk.domain.comment.service.CommentService;
 import com.cnusw.balancetalk.domain.comment.dto.request.CommentRequest;
 import com.cnusw.balancetalk.domain.comment.entity.Comment;
@@ -17,19 +18,17 @@ import java.util.Optional;
 @RestController
 @RequiredArgsConstructor
 public class CommentController {
+
     private final CommentService commentService;
-    private final MemberService memberService;
 
     @GetMapping("/games/{id}/result")
-    public List<Comment> getComments() {
-        return commentService.getCommentsService();
+    public List<CommentResponse> getComments(@PathVariable Long id) {
+        return commentService.getCommentsService(id);
     }
 
     @PostMapping("/games/{id}/comment")
-    public /*ResponseEntity<Comment>*/ String makeComment(@RequestBody CommentRequest commentRequest, HttpServletRequest servletRequest, @PathVariable("id") Long gameId) {
-        Optional<Comment> comment = commentService.makingComment(commentRequest, servletRequest, gameId);
-        //return comment.map(value -> new ResponseEntity<>(value, new HttpHeaders(), HttpStatus.OK)).orElseGet(() -> new ResponseEntity<>(null, null, HttpStatus.FOUND));
-        return "등록 완료";
+    public CommentResponse makeComment(@PathVariable("id") Long gameId, @RequestBody CommentRequest commentRequest, HttpServletRequest servletRequest) {
+        Comment comment = commentService.makingComment(gameId, commentRequest, servletRequest).orElseThrow();
+        return CommentResponse.of(comment);
     }
-
 }
