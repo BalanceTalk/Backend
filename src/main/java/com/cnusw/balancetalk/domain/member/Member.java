@@ -3,9 +3,14 @@ package com.cnusw.balancetalk.domain.member;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.cnusw.balancetalk.domain.comment.Comment;
+import org.springframework.security.crypto.password.PasswordEncoder;
+
+import com.cnusw.balancetalk.domain.member.dto.request.MemberJoinRequest;
+import com.cnusw.balancetalk.domain.comment.entity.Comment;
 import com.cnusw.balancetalk.domain.game.entity.Game;
 import com.cnusw.balancetalk.domain.vote.Vote;
+import com.cnusw.balancetalk.global.common.BaseTimeEntity;
+import com.cnusw.balancetalk.global.enums.Region;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -15,14 +20,19 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
-import lombok.*;
+
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @Entity
-@Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 @Builder
-public class Member {
+@Getter
+public class Member extends BaseTimeEntity {
 
     @Id
     @GeneratedValue
@@ -33,22 +43,39 @@ public class Member {
     private String email;
 
     @Column(nullable = false, unique = true)
-    private String nickname;
+    private String password;
 
     @Column(nullable = false, unique = true)
-    private String password;
+    private String nickname;
 
     private int age;
 
     @Enumerated(EnumType.STRING)
     private Region region;
 
+    @Builder.Default
     @OneToMany(mappedBy = "member")
     private List<Game> games = new ArrayList<>();
 
+    @Builder.Default
     @OneToMany(mappedBy = "member")
     private List<Comment> comments = new ArrayList<>();
 
     @OneToOne(mappedBy = "member")
     private Vote vote;
+
+    public static Member from(MemberJoinRequest request) {
+        return Member.builder()
+                .email(request.getEmail())
+                .password(request.getPassword())
+                .nickname(request.getNickname())
+                .age(request.getAge())
+                .region(request.getRegion())
+                .build();
+    }
+
+    // 비밀번호 암호화
+    public void encodePassword(PasswordEncoder passwordEncoder) {
+        this.password = passwordEncoder.encode(password);
+    }
 }

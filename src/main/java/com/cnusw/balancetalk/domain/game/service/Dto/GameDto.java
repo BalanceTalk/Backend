@@ -1,7 +1,7 @@
 package com.cnusw.balancetalk.domain.game.service.Dto;
 
 
-import com.cnusw.balancetalk.domain.comment.Comment;
+import com.cnusw.balancetalk.domain.comment.entity.Comment;
 import com.cnusw.balancetalk.domain.option.entity.Option;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
