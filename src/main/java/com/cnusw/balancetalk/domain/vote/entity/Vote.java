@@ -26,10 +26,10 @@ public class Vote {
     @Column(name = "vote_id")
     private Long id;
 
-    private boolean isVotedFirstOption;
-    private boolean isVotedSecondOption;
+//    private boolean isVotedFirstOption;
+//    private boolean isVotedSecondOption;
 
-    private Long voterId;
+//    private Long voterId;
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id")

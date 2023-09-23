@@ -59,10 +59,6 @@ public class GameService {
                 .imgUrl(gameRequest.getOptionImgUrl2())
                 .build();
 
-        // 영속성 전이 적용하기
-        optionRepository.save(option1);
-        optionRepository.save(option2);
-
         List<Option> options = new ArrayList<>();
         options.add(option1);
         options.add(option2);
@@ -74,9 +70,14 @@ public class GameService {
                 .member(member)
                 .build();
 
-        Game saved = gameRepository.save(game);
+        gameRepository.save(game);
 
-        return saved.getId();
+        options.forEach(option -> option.addGame(game));
+
+        optionRepository.save(option1);
+        optionRepository.save(option2);
+
+        return game.getId();
     }
 
     public GameResponse findById(Long id) {
@@ -109,20 +110,9 @@ public class GameService {
         // Game 엔티티를 GameResponse로 변환하여 리스트로 반환
         List<GameResponse> gameResponses = new ArrayList<>();
         for (Game game : games) {
-            gameResponses.add(convertToGameResponse(game));
+            gameResponses.add(GameResponse.from(game));
         }
         return gameResponses;
-    }
-
-    private GameResponse convertToGameResponse(Game game) {
-        Member member = game.getMember();
-        return GameResponse.builder()
-                .game_id(game.getId())
-                .title(game.getTitle())
-                .playerCount(game.getPlayerCount())
-                .likes(game.getLikes())
-                .user_id(member.getId())
-                .build();
     }
 }
 

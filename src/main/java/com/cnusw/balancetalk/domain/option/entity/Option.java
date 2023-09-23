@@ -39,4 +39,8 @@ public class Option {
 
     @OneToOne(mappedBy = "option", fetch = FetchType.LAZY)
     private Vote vote;
+
+    public void addGame(Game game) {
+        this.game = game;
+    }
 }
