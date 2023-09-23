@@ -148,10 +148,10 @@ public class GameService {
         return gameRepository.findGameById(gameId);
     }
 
-    //게임 목록 페이지
-    public List<Game> getGameListAll() {
-        return gameRepository.findAll();
-    }
+//    //게임 목록 페이지
+//    public List<Game> getGameListAll() {
+//        return gameRepository.findAll();
+//    }
 
 }
 
