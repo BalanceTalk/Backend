@@ -72,7 +72,7 @@ public class GameService {
 
     public List<GameResponse> getGamesSortedByViews() {
         // 조회수순
-        Sort sort = Sort.by(Sort.Order.desc("player_count"));
+        Sort sort = Sort.by(Sort.Order.desc("playerCount"));
         List<Game> games = gameRepository.findAll(sort);
         return convertToGameResponseList(games);
     }
