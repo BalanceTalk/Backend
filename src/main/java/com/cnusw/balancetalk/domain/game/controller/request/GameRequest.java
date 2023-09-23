@@ -22,6 +22,14 @@ public class GameRequest {
     private LocalDateTime deadline;
 
     //Option1, Option2 단일필드로 분리
+    private String optionTitle1;
+    private String optionDescription1;
+    private String optionImgUrl1;
+
+    private String optionTitle2;
+    private String optionDescription2;
+    private String optionImgUrl2;
+
 
 
 }
