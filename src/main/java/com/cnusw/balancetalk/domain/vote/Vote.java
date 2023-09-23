@@ -21,7 +21,8 @@ import lombok.NoArgsConstructor;
 @Builder
 public class Vote {
 
-    @Id
+    @
+            Id
     @GeneratedValue
     @Column(name = "vote_id")
     private Long id;

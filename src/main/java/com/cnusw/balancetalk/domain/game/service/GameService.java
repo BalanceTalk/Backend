@@ -23,7 +23,6 @@ import java.util.List;
 @Transactional(readOnly=false)
 public class GameService {
     private final GameRepository gameRepository;
-    private final OptionRepository optionRepository;
 
     //게임 제작
     @Transactional
