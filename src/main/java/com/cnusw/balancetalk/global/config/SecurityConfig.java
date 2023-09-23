@@ -51,6 +51,7 @@ public class SecurityConfig {
                                         .requestMatchers(new AntPathRequestMatcher("/members/info")).authenticated()
                                         // 나머지 요청은 모두 인증 필요
                                         .anyRequest().authenticated()
+
                 )
 
                 // 세션을 사용하지 않기 때문에 STATELESS로 설정
