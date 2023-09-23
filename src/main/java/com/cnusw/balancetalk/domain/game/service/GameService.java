@@ -98,10 +98,13 @@ public class GameService {
         // 적절한 변환 로직을 구현해야 합니다.
         // 예를 들어, Game 엔티티의 필드를 GameResponse의 필드로 복사하거나 매핑합니다.
         // 여기에서는 예시로 간단하게 구현하였습니다.
+        Member member = game.getMember();
         return GameResponse.builder()
                 .game_id(game.getId())
                 .title(game.getTitle())
-                // 다른 필드도 추가로 매핑해야 합니다.
+                .playerCount(game.getPlayerCount())
+                .likes(game.getLikes())
+                .user_id(member.getId())
                 .build();
     }
     //게임 목록 모두 조회
