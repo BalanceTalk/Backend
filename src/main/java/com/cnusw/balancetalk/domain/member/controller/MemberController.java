@@ -1,4 +1,4 @@
-package com.cnusw.balancetalk.domain.member;
+package com.cnusw.balancetalk.domain.member.controller;
 
 import static org.springframework.http.HttpStatus.*;
 
@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.cnusw.balancetalk.domain.member.dto.response.MemberInfoResponse;
 import com.cnusw.balancetalk.domain.member.dto.request.MemberJoinRequest;
 import com.cnusw.balancetalk.domain.member.dto.request.MemberLoginRequest;
+import com.cnusw.balancetalk.domain.member.service.MemberService;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;

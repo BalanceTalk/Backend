@@ -1,12 +1,12 @@
-package com.cnusw.balancetalk.domain.comment.application;
+package com.cnusw.balancetalk.domain.comment.service;
 
 import com.cnusw.balancetalk.domain.comment.dto.request.CommentRequest;
 import com.cnusw.balancetalk.domain.comment.entity.Comment;
 import com.cnusw.balancetalk.domain.comment.repository.CommentRepository;
-import com.cnusw.balancetalk.domain.member.MemberRepository;
+import com.cnusw.balancetalk.domain.member.repository.MemberRepository;
 import com.cnusw.balancetalk.domain.game.entity.Game;
 import com.cnusw.balancetalk.domain.game.repository.GameRepository;
-import com.cnusw.balancetalk.domain.member.Member;
+import com.cnusw.balancetalk.domain.member.entity.Member;
 import com.cnusw.balancetalk.global.jwt.JwtUtil;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;

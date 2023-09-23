@@ -6,7 +6,7 @@ import java.util.List;
 
 import com.cnusw.balancetalk.domain.comment.entity.Comment;
 import com.cnusw.balancetalk.domain.option.entity.Option;
-import com.cnusw.balancetalk.domain.member.Member;
+import com.cnusw.balancetalk.domain.member.entity.Member;
 import com.cnusw.balancetalk.global.common.BaseTimeEntity;
 
 import jakarta.persistence.Column;

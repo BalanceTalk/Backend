@@ -1,7 +1,7 @@
 package com.cnusw.balancetalk.domain.member.dto.response;
 
-import com.cnusw.balancetalk.domain.member.Member;
-import com.cnusw.balancetalk.global.enums.Region;
+import com.cnusw.balancetalk.domain.member.entity.Member;
+import com.cnusw.balancetalk.domain.member.enums.Region;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;

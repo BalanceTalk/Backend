@@ -1,11 +1,10 @@
-package com.cnusw.balancetalk.domain.comment.api;
+package com.cnusw.balancetalk.domain.comment.controller;
 
-import com.cnusw.balancetalk.domain.comment.application.CommentService;
+import com.cnusw.balancetalk.domain.comment.service.CommentService;
 import com.cnusw.balancetalk.domain.comment.dto.request.CommentRequest;
 import com.cnusw.balancetalk.domain.comment.entity.Comment;
-import com.cnusw.balancetalk.domain.member.MemberService;
+import com.cnusw.balancetalk.domain.member.service.MemberService;
 import jakarta.servlet.http.HttpServletRequest;
-import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;

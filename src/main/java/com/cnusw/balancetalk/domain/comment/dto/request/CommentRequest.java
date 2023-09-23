@@ -2,7 +2,7 @@ package com.cnusw.balancetalk.domain.comment.dto.request;
 
 import com.cnusw.balancetalk.domain.comment.entity.Comment;
 import com.cnusw.balancetalk.domain.game.entity.Game;
-import com.cnusw.balancetalk.domain.member.Member;
+import com.cnusw.balancetalk.domain.member.entity.Member;
 import lombok.Data;
 
 @Data

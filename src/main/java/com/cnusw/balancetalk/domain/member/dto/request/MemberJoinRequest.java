@@ -1,6 +1,6 @@
 package com.cnusw.balancetalk.domain.member.dto.request;
 
-import com.cnusw.balancetalk.global.enums.Region;
+import com.cnusw.balancetalk.domain.member.enums.Region;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.Max;

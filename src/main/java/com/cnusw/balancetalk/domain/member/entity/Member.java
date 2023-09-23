@@ -1,4 +1,4 @@
-package com.cnusw.balancetalk.domain.member;
+package com.cnusw.balancetalk.domain.member.entity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,7 +10,7 @@ import com.cnusw.balancetalk.domain.comment.entity.Comment;
 import com.cnusw.balancetalk.domain.game.entity.Game;
 import com.cnusw.balancetalk.domain.vote.Vote;
 import com.cnusw.balancetalk.global.common.BaseTimeEntity;
-import com.cnusw.balancetalk.global.enums.Region;
+import com.cnusw.balancetalk.domain.member.enums.Region;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

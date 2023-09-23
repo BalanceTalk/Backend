@@ -1,4 +1,4 @@
-package com.cnusw.balancetalk.domain.option.service.Dto;
+package com.cnusw.balancetalk.domain.option.service.dto;
 
 
 import lombok.AllArgsConstructor;

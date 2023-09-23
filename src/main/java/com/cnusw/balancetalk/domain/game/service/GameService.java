@@ -5,8 +5,7 @@ import com.cnusw.balancetalk.domain.game.controller.request.GameRequest;
 import com.cnusw.balancetalk.domain.game.controller.response.GameResponse;
 import com.cnusw.balancetalk.domain.game.entity.Game;
 import com.cnusw.balancetalk.domain.game.repository.GameRepository;
-import com.cnusw.balancetalk.domain.game.service.Dto.GameDto;
-import com.cnusw.balancetalk.domain.member.Member;
+import com.cnusw.balancetalk.domain.member.entity.Member;
 import com.cnusw.balancetalk.domain.option.entity.Option;
 import com.cnusw.balancetalk.domain.option.repository.OptionRepository;
 import lombok.RequiredArgsConstructor;
@@ -16,7 +15,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
