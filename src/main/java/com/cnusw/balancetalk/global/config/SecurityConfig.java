@@ -45,7 +45,8 @@ public class SecurityConfig {
                                         .requestMatchers(
                                                 new AntPathRequestMatcher("/members/login"),
                                                 new AntPathRequestMatcher("/members/join"),
-                                                new AntPathRequestMatcher("/members/info")
+                                                new AntPathRequestMatcher("/members/info"),
+                                                new AntPathRequestMatcher("/h2-console/**")
                                         ).permitAll()
 //                                .requestMatchers("/members/info").authenticated() // 인증된 사용자에게만 접근 허용
                                         .requestMatchers(new AntPathRequestMatcher("/members/info")).authenticated()
