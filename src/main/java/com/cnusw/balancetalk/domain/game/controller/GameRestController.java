@@ -2,9 +2,7 @@ package com.cnusw.balancetalk.domain.game.controller;
 
 
 import com.cnusw.balancetalk.domain.game.controller.request.GameRequest;
-import com.cnusw.balancetalk.domain.game.controller.response.GameResponse;
 import com.cnusw.balancetalk.domain.game.entity.Game;
-import com.cnusw.balancetalk.domain.game.service.Dto.GameDto;
 import com.cnusw.balancetalk.domain.game.service.GameService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -33,7 +31,6 @@ public class GameRestcontroller {
     public List<Game> getAllGameList() {
         return gameService.getGameListAll();
     }
-
 
 
 }

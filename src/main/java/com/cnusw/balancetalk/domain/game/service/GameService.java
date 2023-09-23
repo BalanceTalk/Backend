@@ -7,16 +7,14 @@ import com.cnusw.balancetalk.domain.game.entity.Game;
 import com.cnusw.balancetalk.domain.game.repository.GameRepository;
 import com.cnusw.balancetalk.domain.game.service.Dto.GameDto;
 import com.cnusw.balancetalk.domain.member.Member;
-import com.cnusw.balancetalk.domain.option.controller.request.OptionRequest;
 import com.cnusw.balancetalk.domain.option.entity.Option;
-import com.cnusw.balancetalk.domain.option.repository.OptionRepository;
-import com.cnusw.balancetalk.domain.option.service.Dto.OptionDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -56,6 +54,30 @@ public class GameService {
     public Game getGameById(Long gameId) {
         return gameRepository.findGameById(gameId);
     }
+
+    //게임 목록 모두 조회
+    /*
+    public List<GameResponse> getGameListAll(Long gameId){
+        List<Game> gameListAll = gameRepository.findAllByGameId(gameId);
+
+        List<GameResponse> gameResponseListAll = new ArrayList<>();
+        gameListAll.forEach(
+                (game->{
+                    gameResponseListAll.add(
+                            GameResponse.builder()
+                                    .game_id(game.getId())
+                                    .user_id(game.getMember().getId())
+                                    .title(game.getTitle())
+                                    .playerCount(game.getPlayerCount())
+                                    .likes(game.getLikes())
+                                    .options(game.getOptions())
+                                    .build()
+                    );
+                 })
+        );
+
+        return gameResponseListAll;
+        */
 
     //게임 목록 페이지
     public List<Game> getGameListAll() {
