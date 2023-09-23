@@ -28,7 +28,7 @@ public class GameRestcontroller {
 
     //Game 전체 목록 출력
     @GetMapping
-    public List<Game> getAllGameList() {
+    public List<GameResponse> getAllGameList() {
         return gameService.getGameListAll();
     }
 
