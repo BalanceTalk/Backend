@@ -94,10 +94,6 @@ public class GameService {
     }
 
     private GameResponse convertToGameResponse(Game game) {
-        // Game 엔티티를 GameResponse로 변환
-        // 적절한 변환 로직을 구현해야 합니다.
-        // 예를 들어, Game 엔티티의 필드를 GameResponse의 필드로 복사하거나 매핑합니다.
-        // 여기에서는 예시로 간단하게 구현하였습니다.
         Member member = game.getMember();
         return GameResponse.builder()
                 .game_id(game.getId())
