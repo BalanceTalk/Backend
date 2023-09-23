@@ -58,9 +58,6 @@ public class GameService {
         return gameRepository.save(game).getId();
     }
 
-    public Iterable<Game> getAllGames() {
-        return gameRepository.findAll();
-    }
     public List<GameResponse> getGamesSortedByPopularity() {
         // 인기순
         Sort sort = Sort.by(Sort.Order.desc("likes"));
@@ -125,8 +122,8 @@ public class GameService {
         return gameResponseListAll;
         */
     //게임 화면 페이지
-    public Game getGameById(Long gameId) {
-        return gameRepository.findGameById(gameId);
+    public List<Game> getAllGames() {
+        return gameRepository.findAll();
     }
     //게임 목록 모두 조회
     /*

@@ -12,7 +12,7 @@ import java.util.List;
 
 @RequiredArgsConstructor
 @RestController
-public class GameRestcontroller {
+public class GameRestController {
     private final GameService gameService;
 
     @PostMapping("/games/create")
@@ -28,8 +28,8 @@ public class GameRestcontroller {
 
     //Game 전체 목록 출력
     @GetMapping
-    public List<GameResponse> getAllGameList() {
-        return gameService.getGameListAll();
+    public List<Game> getAllGameList() {
+        return gameService.getAllGames();
     }
 
 
