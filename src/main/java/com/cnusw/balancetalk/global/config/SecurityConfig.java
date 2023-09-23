@@ -12,6 +12,7 @@ import org.springframework.security.web.SecurityFilterChain;
 import com.cnusw.balancetalk.global.jwt.JwtAuthenticationEntryPoint;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @Configuration
 @EnableWebSecurity // 기본적인 웹 보안 활성화
@@ -38,12 +39,18 @@ public class SecurityConfig {
 
                 // HttpServletRequest를 사용하는 요청들에 대한 접근제한 설정
                 .authorizeHttpRequests(authorizeHttpRequests ->
-                        authorizeHttpRequests
-                                // 지정한 경로에 대한 요청은 인증없이 접근을 허용
-                                .requestMatchers("/members/login", "/members/join", "/members/info").permitAll()
-                                .requestMatchers("/members/info").authenticated() // 인증된 사용자에게만 접근 허용
-                                // 나머지 요청은 모두 인증 필요
-                                .anyRequest().authenticated()
+                                authorizeHttpRequests
+                                        // 지정한 경로에 대한 요청은 인증없이 접근을 허용
+//                                .requestMatchers("/members/login", "/members/join", "/members/info").permitAll()
+                                        .requestMatchers(
+                                                new AntPathRequestMatcher("/members/login"),
+                                                new AntPathRequestMatcher("/members/join"),
+                                                new AntPathRequestMatcher("/members/info")
+                                        ).permitAll()
+//                                .requestMatchers("/members/info").authenticated() // 인증된 사용자에게만 접근 허용
+                                        .requestMatchers(new AntPathRequestMatcher("/members/info")).authenticated()
+                                        // 나머지 요청은 모두 인증 필요
+                                        .anyRequest().authenticated()
                 )
 
                 // 세션을 사용하지 않기 때문에 STATELESS로 설정
