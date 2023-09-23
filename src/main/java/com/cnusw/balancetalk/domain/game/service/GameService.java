@@ -11,6 +11,7 @@ import com.cnusw.balancetalk.domain.option.entity.Option;
 import com.cnusw.balancetalk.domain.option.repository.OptionRepository;
 import com.cnusw.balancetalk.domain.option.service.Dto.OptionDto;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -61,6 +62,47 @@ public class GameService {
         });
 
         return gameResponseListAll;
+    }
+    public List<GameResponse> getGamesSortedByPopularity() {
+        // 인기순
+        Sort sort = Sort.by(Sort.Order.desc("likes"));
+        List<Game> games = gameRepository.findAll(sort);
+        return convertToGameResponseList(games);
+    }
+
+    public List<GameResponse> getGamesSortedByViews() {
+        // 조회수순
+        Sort sort = Sort.by(Sort.Order.desc("player_count"));
+        List<Game> games = gameRepository.findAll(sort);
+        return convertToGameResponseList(games);
+    }
+
+    public List<GameResponse> getGamesSortedByLatest() {
+        // 최신순
+        Sort sort = Sort.by(Sort.Order.desc("createdAt"));
+        List<Game> games = gameRepository.findAll(sort);
+        return convertToGameResponseList(games);
+    }
+
+    private List<GameResponse> convertToGameResponseList(List<Game> games) {
+        // Game 엔티티를 GameResponse로 변환하여 리스트로 반환
+        List<GameResponse> gameResponses = new ArrayList<>();
+        for (Game game : games) {
+            gameResponses.add(convertToGameResponse(game));
+        }
+        return gameResponses;
+    }
+
+    private GameResponse convertToGameResponse(Game game) {
+        // Game 엔티티를 GameResponse로 변환
+        // 적절한 변환 로직을 구현해야 합니다.
+        // 예를 들어, Game 엔티티의 필드를 GameResponse의 필드로 복사하거나 매핑합니다.
+        // 여기에서는 예시로 간단하게 구현하였습니다.
+        return GameResponse.builder()
+                .game_id(game.getId())
+                .title(game.getTitle())
+                // 다른 필드도 추가로 매핑해야 합니다.
+                .build();
     }
     //게임 목록 모두 조회
     /*
