@@ -40,7 +40,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests(authorizeHttpRequests ->
                         authorizeHttpRequests
                                 // 지정한 경로에 대한 요청은 인증없이 접근을 허용
-                                .requestMatchers("/members/login", "/members/join", "/members/info").permitAll()
+                                .requestMatchers("/members/login", "/members/join", "/members/info", "/h2-console/**").permitAll()
                                 .requestMatchers("/members/info").authenticated() // 인증된 사용자에게만 접근 허용
                                 // 나머지 요청은 모두 인증 필요
                                 .anyRequest().authenticated()
