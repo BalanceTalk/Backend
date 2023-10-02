@@ -4,15 +4,15 @@ import com.cnusw.balancetalk.domain.comment.dto.response.CommentResponse;
 import com.cnusw.balancetalk.domain.comment.service.CommentService;
 import com.cnusw.balancetalk.domain.comment.dto.request.CommentRequest;
 import com.cnusw.balancetalk.domain.comment.entity.Comment;
-import com.cnusw.balancetalk.domain.member.service.MemberService;
+
 import jakarta.servlet.http.HttpServletRequest;
+
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
-
 
 @Slf4j
 @RestController

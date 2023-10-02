@@ -43,6 +43,9 @@ public class SecurityConfig {
                                         // 지정한 경로에 대한 요청은 인증없이 접근을 허용
 //                                .requestMatchers("/members/login", "/members/join", "/members/info").permitAll()
                                         .requestMatchers(
+                                                new AntPathRequestMatcher("/v3/api-docs/**"),
+                                                new AntPathRequestMatcher("/swagger-ui/**"),
+                                                new AntPathRequestMatcher("/swagger-resources/**"),
                                                 new AntPathRequestMatcher("/members/login"),
                                                 new AntPathRequestMatcher("/members/join"),
                                                 new AntPathRequestMatcher("/members/info"),
