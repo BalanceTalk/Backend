@@ -3,29 +3,36 @@ package com.cnusw.balancetalk.domain.game.controller;
 
 import com.cnusw.balancetalk.domain.game.controller.request.GameRequest;
 import com.cnusw.balancetalk.domain.game.controller.response.GameResponse;
-import com.cnusw.balancetalk.domain.game.entity.Game;
 import com.cnusw.balancetalk.domain.game.service.GameService;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.HttpServletRequest;
+
 import lombok.RequiredArgsConstructor;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@RequiredArgsConstructor
+@Tag(name = "game", description = "게임 API")
 @RestController
+@RequiredArgsConstructor
 public class GameRestController {
 
     private final GameService gameService;
 
     @PostMapping("/games/create")
+    @Operation(summary = "게임 제작", description = "게임을 제작한다.")
     public ResponseEntity<Long> create(@RequestBody GameRequest request, HttpServletRequest servletRequest) {
         return ResponseEntity.ok(gameService.createGame(request, servletRequest));
     }
 
     @GetMapping("/games")
-    public List<GameResponse> getGames(@RequestParam(name = "sortBy", required = false) String sortBy) {
+    @Operation(summary = "모든 게임 조회", description = "모든 게임을 지정한 정렬 방법으로 가져온다.")
+    public List<GameResponse> getGames(@Parameter(name = "sortBy", description = "정렬 방법") @RequestParam(name = "sortBy", required = false) String sortBy) {
         return getGameResponses(sortBy);
     }
 
@@ -46,7 +53,9 @@ public class GameRestController {
      * 선택지 투표 페이지랑 / 게임 페이지 중복 되는것같은데..??
      */
     @GetMapping("/games/{id}")
-    public GameResponse findById(@PathVariable Long id) {
+    @Operation(summary = "id에 해당하는 게임 조회", description = "id에 해당하는 게임을 가져온다.")
+    public GameResponse findById(@Parameter(name = "game id", description = "게임 아이디") @PathVariable Long id) {
         return gameService.findById(id);
     }
 }
+
