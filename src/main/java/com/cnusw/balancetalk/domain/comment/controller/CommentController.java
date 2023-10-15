@@ -23,7 +23,7 @@ public class CommentController {
 
     private final CommentService commentService;
 
-    @GetMapping("/games/{id}/result")
+    @GetMapping("/games/{gameId}/result")
     @Operation(summary = "모든 댓글 조회", description = "게임에 존재하는 모든 댓글을 가져온다.")
     public List<CommentResponse> getComments(@Parameter(name = "game id", description = "게임 아이디") @PathVariable Long gameId) {
         return commentService.getCommentsService(gameId);
