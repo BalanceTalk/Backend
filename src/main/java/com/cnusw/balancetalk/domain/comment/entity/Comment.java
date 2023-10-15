@@ -30,7 +30,7 @@ import lombok.NoArgsConstructor;
 public class Comment extends BaseTimeEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue
     @Column(name = "comment_id")
     private Long id;
 

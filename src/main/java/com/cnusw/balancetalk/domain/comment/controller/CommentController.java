@@ -38,4 +38,9 @@ public class CommentController {
         Comment comment = commentService.makingComment(gameId, commentRequest, servletRequest).orElseThrow();
         return CommentResponse.of(comment);
     }
+
+    @PostMapping("/comment/{id}/like")
+    public void likeComment(@PathVariable Long id, HttpServletRequest request) {
+        commentService.likeComment(id, request);
+    }
 }
