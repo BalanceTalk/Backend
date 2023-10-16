@@ -1,17 +1,16 @@
 package com.cnusw.balancetalk.domain.game.service;
 
-
-
 import com.cnusw.balancetalk.domain.game.controller.request.GameRequest;
+import com.cnusw.balancetalk.domain.game.controller.response.CategoryGamesResponse;
 import com.cnusw.balancetalk.domain.game.controller.response.GameResponse;
 import com.cnusw.balancetalk.domain.game.entity.Game;
 import com.cnusw.balancetalk.domain.game.repository.GameRepository;
 import com.cnusw.balancetalk.domain.member.entity.Member;
 import com.cnusw.balancetalk.domain.member.repository.MemberRepository;
-import com.cnusw.balancetalk.domain.member.service.MemberService;
 import com.cnusw.balancetalk.domain.option.entity.Option;
 import com.cnusw.balancetalk.domain.option.repository.OptionRepository;
 import com.cnusw.balancetalk.global.jwt.JwtUtil;
+import com.cnusw.balancetalk.domain.vote.repository.VoteRepository;
 
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
@@ -32,6 +31,7 @@ public class GameService {
 
     private final GameRepository gameRepository;
     private final OptionRepository optionRepository;
+    private final VoteRepository voteRepository;
     private final MemberRepository memberRepository;
     private final JwtUtil jwtUtil;
 
@@ -85,29 +85,81 @@ public class GameService {
         return GameResponse.from(game);
     }
 
+    // 인기순으로 게임 정렬 리스트 반환
     public List<GameResponse> getGamesSortedByPopularity() {
-        // 인기순
         Sort sort = Sort.by(Sort.Order.desc("likes"));
         List<Game> games = gameRepository.findAll(sort);
         return convertToGameResponseList(games);
     }
 
+    // 조회수순으로 게임 정렬 리스트 반환
     public List<GameResponse> getGamesSortedByViews() {
-        // 조회수순
         Sort sort = Sort.by(Sort.Order.desc("playerCount"));
         List<Game> games = gameRepository.findAll(sort);
         return convertToGameResponseList(games);
     }
 
+    // 최신순으로 게임 정렬 리스트 반환
     public List<GameResponse> getGamesSortedByLatest() {
-        // 최신순
         Sort sort = Sort.by(Sort.Order.desc("createdAt"));
         List<Game> games = gameRepository.findAll(sort);
         return convertToGameResponseList(games);
     }
 
+    // getmapping('/')
+    // 메인페이지.
+    // 여러 카테고리의 게임리스트를 하나의 리스트로 전달.
+    public List<CategoryGamesResponse> getCategoryGamesList() {
+        List<CategoryGamesResponse> categoryGamesResponses = new ArrayList<>();
+        categoryGamesResponses.add(getCategoryGamesOfGoldenBalance());
+        categoryGamesResponses.add(getCategoryGamesOfPopularity());
+        categoryGamesResponses.add(getCategoryGamesOfViews());
+        categoryGamesResponses.add(getCategoryGamesOfLatest());
+        return categoryGamesResponses;
+    }
+
+    // 황금밸런스 카테고리
+    // GameResponse 리스트와 카테고리를 CategoryGamesResponse Dto로 변환 후 반환
+    private CategoryGamesResponse getCategoryGamesOfGoldenBalance() {
+        List<Game> games = gameRepository.findAll();
+        List<GameResponse> allGameResponses = convertToGameResponseList(games);
+        List<GameResponse> goldenBalanceGameResponses = new ArrayList<>();
+
+        for (GameResponse gameResponse : allGameResponses) {
+            Option option1 = optionRepository.findOptionById(gameResponse.getOptionId1());
+            Option option2 = optionRepository.findOptionById(gameResponse.getOptionId2());
+            int firstOptionLen = voteRepository.findVotesByOption(option1).size();
+            int secondOptionLen = voteRepository.findVotesByOption(option2).size();
+            double percentage = (firstOptionLen / (firstOptionLen+secondOptionLen)) * 100.0;
+            if ((percentage <= 65) && (percentage >= 45) ) { goldenBalanceGameResponses.add(gameResponse); }
+        }
+
+        return CategoryGamesResponse.from(goldenBalanceGameResponses, "goldenBalance");
+    }
+
+    // 인기순 카테고리
+    // GameResponse 리스트와 카테고리를 CategoryGamesResponse Dto로 변환 후 반환
+    private CategoryGamesResponse getCategoryGamesOfPopularity() {
+        List<GameResponse> gameResponses = getGamesSortedByPopularity();
+        return CategoryGamesResponse.from(gameResponses, "popularity");
+    }
+
+    // 조회수순 카테고리
+    // GameResponse 리스트와 카테고리를 CategoryGamesResponse Dto로 변환 후 반환
+    private CategoryGamesResponse getCategoryGamesOfViews() {
+        List<GameResponse> gameResponses = getGamesSortedByViews();
+        return CategoryGamesResponse.from(gameResponses, "views");
+    }
+
+    // 최신순 카테고리
+    // GameResponse 리스트와 카테고리를 CategoryGamesResponse Dto로 변환 후 반환
+    private CategoryGamesResponse getCategoryGamesOfLatest() {
+        List<GameResponse> gameResponses = getGamesSortedByViews();
+        return CategoryGamesResponse.from(gameResponses, "latest");
+    }
+
+    // Game 엔티티를 GameResponse로 변환하여 리스트로 반환
     private List<GameResponse> convertToGameResponseList(List<Game> games) {
-        // Game 엔티티를 GameResponse로 변환하여 리스트로 반환
         List<GameResponse> gameResponses = new ArrayList<>();
         for (Game game : games) {
             gameResponses.add(GameResponse.from(game));

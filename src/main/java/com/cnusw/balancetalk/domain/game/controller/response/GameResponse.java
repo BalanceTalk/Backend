@@ -1,8 +1,6 @@
 package com.cnusw.balancetalk.domain.game.controller.response;
 
 
-import java.util.List;
-
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -19,6 +17,8 @@ public class GameResponse {
     private String title;
     private long playerCount;
     private long likes;
+    private long optionId1;
+    private long optionId2;
     private String optionTitle1;
     private String optionTitle2;
     private String optionDescription1;
@@ -33,6 +33,8 @@ public class GameResponse {
                 .title(game.getTitle())
                 .playerCount(game.getPlayerCount())
                 .likes(game.getLikes())
+                .optionId1(option1.getId())
+                .optionId2(option2.getId())
                 .optionTitle1(option1.getTitle())
                 .optionTitle2(option2.getTitle())
                 .optionDescription1(option1.getDescription())
