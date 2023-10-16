@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import com.cnusw.balancetalk.domain.comment.entity.CommentDislikes;
 import com.cnusw.balancetalk.domain.comment.entity.CommentLikes;
 import com.cnusw.balancetalk.domain.member.dto.request.MemberJoinRequest;
 import com.cnusw.balancetalk.domain.comment.entity.Comment;
@@ -64,6 +65,9 @@ public class Member extends BaseTimeEntity {
 
     @OneToMany(mappedBy = "member")
     private List<CommentLikes> commentLikes = new ArrayList<>();
+
+    @OneToMany(mappedBy = "member")
+    private List<CommentDislikes> commentDislikes = new ArrayList<>();
 
     @OneToOne(mappedBy = "member")
     private Vote vote;

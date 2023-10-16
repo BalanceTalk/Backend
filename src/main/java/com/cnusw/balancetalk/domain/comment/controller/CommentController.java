@@ -48,4 +48,14 @@ public class CommentController {
     public long getLikesCount(@PathVariable Long id) {
         return commentService.getLikesCount(id);
     }
+
+    @PostMapping("/comment/{id}/dislike")
+    public void dislikeComment(@PathVariable Long id, HttpServletRequest request) {
+        commentService.dislikeComment(id, request);
+    }
+
+    @GetMapping("/comment/{id}/dislikes")
+    public long getDislikesCount(@PathVariable Long id) {
+        return commentService.getDislikesCount(id);
+    }
 }
