@@ -76,6 +76,13 @@ public class CommentService {
         commentLikesRepository.save(commentLikes);
     }
 
+    public long getLikesCount(Long commentId) {
+        return commentRepository.findById(commentId)
+                .orElseThrow()
+                .getLikes()
+                .size();
+    }
+
     // 요청 헤더에서 토큰 추출
     private String extractToken(HttpServletRequest request) {
         String bearerToken = request.getHeader("Authorization");

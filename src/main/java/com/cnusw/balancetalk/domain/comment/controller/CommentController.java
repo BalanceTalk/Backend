@@ -43,4 +43,9 @@ public class CommentController {
     public void likeComment(@PathVariable Long id, HttpServletRequest request) {
         commentService.likeComment(id, request);
     }
+
+    @GetMapping("/comment/{id}/likes")
+    public long getLikesCount(@PathVariable Long id) {
+        return commentService.getLikesCount(id);
+    }
 }
