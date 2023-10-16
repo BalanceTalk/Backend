@@ -1,21 +1,15 @@
 package com.cnusw.balancetalk.domain.comment.entity;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import com.cnusw.balancetalk.domain.game.entity.Game;
 import com.cnusw.balancetalk.domain.member.entity.Member;
-import com.cnusw.balancetalk.global.common.BaseTimeEntity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
+
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -27,24 +21,15 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 @Builder
 @Getter
-public class Comment extends BaseTimeEntity {
+public class CommentLikes {
 
-    @Id
-    @GeneratedValue
-    @Column(name = "comment_id")
+    @Id @GeneratedValue
+    @Column(name = "comment_likes_id")
     private Long id;
 
-    @Column(nullable = false)
-    private String content;
-
-    @OneToMany(mappedBy = "comment")
-    private List<CommentLikes> likes = new ArrayList<>();
-
-    private long dislikes;
-
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "game_id")
-    private Game game;
+    @JoinColumn(name = "comment_id")
+    private Comment comment;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id")

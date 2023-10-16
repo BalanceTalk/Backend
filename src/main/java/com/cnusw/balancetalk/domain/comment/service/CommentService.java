@@ -3,6 +3,8 @@ package com.cnusw.balancetalk.domain.comment.service;
 import com.cnusw.balancetalk.domain.comment.dto.request.CommentRequest;
 import com.cnusw.balancetalk.domain.comment.dto.response.CommentResponse;
 import com.cnusw.balancetalk.domain.comment.entity.Comment;
+import com.cnusw.balancetalk.domain.comment.entity.CommentLikes;
+import com.cnusw.balancetalk.domain.comment.repository.CommentLikesRepository;
 import com.cnusw.balancetalk.domain.comment.repository.CommentRepository;
 import com.cnusw.balancetalk.domain.member.repository.MemberRepository;
 import com.cnusw.balancetalk.domain.game.entity.Game;
@@ -25,6 +27,7 @@ import java.util.stream.Collectors;
 @Slf4j
 public class CommentService {
     private final CommentRepository commentRepository;
+    private final CommentLikesRepository commentLikesRepository;
     private final GameRepository gameRepository;
     private final MemberRepository memberRepository;
 
@@ -51,6 +54,26 @@ public class CommentService {
 
         Comment comment = commentRepository.save(commentRequest.toEntity(game, member));
         return Optional.of(comment);
+    }
+
+    public void likeComment(Long commentId, HttpServletRequest request) {
+        String memberEmail = extractEmailFromToken(extractToken(request));
+        Member member = memberRepository.findByEmail(memberEmail)
+                .orElseThrow();
+
+        Comment comment = commentRepository.findById(commentId)
+                .orElseThrow();
+
+        Optional<CommentLikes> byMember = commentLikesRepository.findByMemberAndComment(member, comment);
+        if (byMember.isPresent()) {
+            return;
+        }
+
+        CommentLikes commentLikes = CommentLikes.builder()
+                .member(member)
+                .comment(comment)
+                .build();
+        commentLikesRepository.save(commentLikes);
     }
 
     // 요청 헤더에서 토큰 추출
