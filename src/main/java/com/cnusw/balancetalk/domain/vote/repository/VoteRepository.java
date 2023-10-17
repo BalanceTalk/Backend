@@ -12,5 +12,5 @@ import java.util.List;
 public interface VoteRepository extends JpaRepository<Vote, Long> {
 
     @Query(value = "SELECT * FROM Vote b WHERE option_id = :option_id", nativeQuery = true)
-    List<Vote> findVotesByOption(Option option);
+    List<Vote> findVotesByOption(Long option_id);
 }

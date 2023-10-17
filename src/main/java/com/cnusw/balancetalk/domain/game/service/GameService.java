@@ -128,8 +128,8 @@ public class GameService {
         for (GameResponse gameResponse : allGameResponses) {
             Option option1 = optionRepository.findOptionById(gameResponse.getOptionId1());
             Option option2 = optionRepository.findOptionById(gameResponse.getOptionId2());
-            int firstOptionLen = voteRepository.findVotesByOption(option1).size();
-            int secondOptionLen = voteRepository.findVotesByOption(option2).size();
+            int firstOptionLen = voteRepository.findVotesByOption(option1.getId()).size();
+            int secondOptionLen = voteRepository.findVotesByOption(option2.getId()).size();
             double percentage = (firstOptionLen / (firstOptionLen+secondOptionLen)) * 100.0;
             if ((percentage <= 65) && (percentage >= 45) ) { goldenBalanceGameResponses.add(gameResponse); }
         }
