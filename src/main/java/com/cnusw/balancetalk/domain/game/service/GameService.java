@@ -131,7 +131,7 @@ public class GameService {
             int firstOptionVoteCount = voteRepository.findVotesByOption(option1.getId()).size();
             int secondOptionVoteCount = voteRepository.findVotesByOption(option2.getId()).size();
             double percentage = (firstOptionVoteCount / (firstOptionVoteCount+secondOptionVoteCount)) * 100.0;
-            if ((percentage <= 65) && (percentage >= 45) ) { goldenBalanceGameResponses.add(gameResponse); }
+            if ((percentage <= 55) && (percentage >= 45) ) { goldenBalanceGameResponses.add(gameResponse); }
         }
 
         return CategoryGamesResponse.from(goldenBalanceGameResponses, "goldenBalance");
