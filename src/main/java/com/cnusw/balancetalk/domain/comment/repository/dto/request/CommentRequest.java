@@ -1,4 +1,4 @@
-package com.cnusw.balancetalk.domain.comment.dto.request;
+package com.cnusw.balancetalk.domain.comment.repository.dto.request;
 
 import com.cnusw.balancetalk.domain.comment.entity.Comment;
 import com.cnusw.balancetalk.domain.game.entity.Game;

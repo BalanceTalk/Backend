@@ -4,6 +4,7 @@ import com.cnusw.balancetalk.domain.game.controller.request.GameRequest;
 import com.cnusw.balancetalk.domain.game.controller.response.CategoryGamesResponse;
 import com.cnusw.balancetalk.domain.game.controller.response.GameResponse;
 import com.cnusw.balancetalk.domain.game.entity.Game;
+import com.cnusw.balancetalk.domain.game.enums.Category;
 import com.cnusw.balancetalk.domain.game.repository.GameRepository;
 import com.cnusw.balancetalk.domain.member.entity.Member;
 import com.cnusw.balancetalk.domain.member.repository.MemberRepository;
@@ -134,28 +135,28 @@ public class GameService {
             if ((percentage <= 55) && (percentage >= 45) ) { goldenBalanceGameResponses.add(gameResponse); }
         }
 
-        return CategoryGamesResponse.from(goldenBalanceGameResponses, "goldenBalance");
+        return CategoryGamesResponse.from(goldenBalanceGameResponses, Category.GOLDENBALANCE);
     }
 
     // 인기순 카테고리
     // GameResponse 리스트와 카테고리를 CategoryGamesResponse Dto로 변환 후 반환
     private CategoryGamesResponse getCategoryGamesOfPopularity() {
         List<GameResponse> gameResponses = getGamesSortedByPopularity();
-        return CategoryGamesResponse.from(gameResponses, "popularity");
+        return CategoryGamesResponse.from(gameResponses, Category.POPULARITY);
     }
 
     // 조회수순 카테고리
     // GameResponse 리스트와 카테고리를 CategoryGamesResponse Dto로 변환 후 반환
     private CategoryGamesResponse getCategoryGamesOfViews() {
         List<GameResponse> gameResponses = getGamesSortedByViews();
-        return CategoryGamesResponse.from(gameResponses, "views");
+        return CategoryGamesResponse.from(gameResponses, Category.VIEWS);
     }
 
     // 최신순 카테고리
     // GameResponse 리스트와 카테고리를 CategoryGamesResponse Dto로 변환 후 반환
     private CategoryGamesResponse getCategoryGamesOfLatest() {
         List<GameResponse> gameResponses = getGamesSortedByViews();
-        return CategoryGamesResponse.from(gameResponses, "latest");
+        return CategoryGamesResponse.from(gameResponses, Category.LATEST);
     }
 
     // Game 엔티티를 GameResponse로 변환하여 리스트로 반환
