@@ -57,5 +57,13 @@ public class GameRestController {
     public GameResponse findById(@Parameter(name = "game id", description = "게임 아이디") @PathVariable Long id) {
         return gameService.findById(id);
     }
+
+    @PutMapping("/games/{id}/report")
+    @Operation(summary = "게임 신고", description = "id에 해당하는 게임을 신고한다.")
+    public ResponseEntity<String> reportGame(@Parameter(name = "game id", description = "게임 아이디") @PathVariable Long id) {
+        gameService.reportGame(id);
+        return ResponseEntity.ok("Game has been reported.");
+    }
+
 }
 

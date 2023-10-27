@@ -54,4 +54,17 @@ public class Game extends BaseTimeEntity {
     @JoinColumn(name = "member_id")
     private Member member;
 
+    // Add a column for the number of reports
+    @Builder.Default
+    @Setter
+    @Getter
+    @Column(nullable = false)
+    private long reports = 0;
+
+    // Add a column for whether the game is active or not
+    @Builder.Default
+    @Setter
+    @Column(nullable = false)
+    private boolean activation = true;
+
 }
