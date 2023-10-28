@@ -89,21 +89,21 @@ public class GameService {
     // 인기순으로 게임 정렬 리스트 반환
     public List<GameResponse> getGamesSortedByPopularity() {
         Sort sort = Sort.by(Sort.Order.desc("likes"));
-        List<Game> games = gameRepository.findAll(sort);
+        List<Game> games = gameRepository.findAllByActivationTrue(sort);
         return convertToGameResponseList(games);
     }
 
     // 조회수순으로 게임 정렬 리스트 반환
     public List<GameResponse> getGamesSortedByViews() {
         Sort sort = Sort.by(Sort.Order.desc("playerCount"));
-        List<Game> games = gameRepository.findAll(sort);
+        List<Game> games = gameRepository.findAllByActivationTrue(sort);
         return convertToGameResponseList(games);
     }
 
     // 최신순으로 게임 정렬 리스트 반환
     public List<GameResponse> getGamesSortedByLatest() {
         Sort sort = Sort.by(Sort.Order.desc("createdAt"));
-        List<Game> games = gameRepository.findAll(sort);
+        List<Game> games = gameRepository.findAllByActivationTrue(sort);
         return convertToGameResponseList(games);
     }
 
@@ -166,6 +166,15 @@ public class GameService {
             gameResponses.add(GameResponse.from(game));
         }
         return gameResponses;
+    }
+
+    public void reportGame(Long id) {
+        Game game = gameRepository.findById(id).orElseThrow();
+        long currentReports = game.getReports();
+        game.setReports(currentReports + 1);
+        if (currentReports + 1 >= 5) {
+            game.setActivation(false);
+        }
     }
 }
 
