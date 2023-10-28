@@ -1,4 +1,4 @@
-package com.cnusw.balancetalk.domain.comment.dto.response;
+package com.cnusw.balancetalk.domain.comment.repository.dto.response;
 
 import com.cnusw.balancetalk.domain.comment.entity.Comment;
 

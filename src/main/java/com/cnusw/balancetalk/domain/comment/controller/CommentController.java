@@ -1,8 +1,8 @@
 package com.cnusw.balancetalk.domain.comment.controller;
 
-import com.cnusw.balancetalk.domain.comment.dto.response.CommentResponse;
+import com.cnusw.balancetalk.domain.comment.repository.dto.response.CommentResponse;
 import com.cnusw.balancetalk.domain.comment.service.CommentService;
-import com.cnusw.balancetalk.domain.comment.dto.request.CommentRequest;
+import com.cnusw.balancetalk.domain.comment.repository.dto.request.CommentRequest;
 import com.cnusw.balancetalk.domain.comment.entity.Comment;
 
 import io.swagger.v3.oas.annotations.Operation;

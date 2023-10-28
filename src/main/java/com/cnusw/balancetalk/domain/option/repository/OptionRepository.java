@@ -7,5 +7,6 @@ import org.springframework.stereotype.Repository;
 
 public interface OptionRepository extends JpaRepository<Option, Long> {
 
-    Option findByTitle(String title);
+    Option findOptionById(Long id);
+    Option findOptionByTitle(String title);
 }

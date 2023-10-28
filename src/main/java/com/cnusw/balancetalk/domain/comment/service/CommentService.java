@@ -1,7 +1,7 @@
 package com.cnusw.balancetalk.domain.comment.service;
 
-import com.cnusw.balancetalk.domain.comment.dto.request.CommentRequest;
-import com.cnusw.balancetalk.domain.comment.dto.response.CommentResponse;
+import com.cnusw.balancetalk.domain.comment.repository.dto.request.CommentRequest;
+import com.cnusw.balancetalk.domain.comment.repository.dto.response.CommentResponse;
 import com.cnusw.balancetalk.domain.comment.entity.Comment;
 import com.cnusw.balancetalk.domain.comment.entity.CommentLikes;
 import com.cnusw.balancetalk.domain.comment.repository.CommentLikesRepository;

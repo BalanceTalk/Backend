@@ -11,4 +11,5 @@ public class BalanceTalkApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(BalanceTalkApplication.class, args);
 	}
+
 }
