@@ -39,8 +39,23 @@ public class CommentController {
         return CommentResponse.of(comment);
     }
 
-    @PostMapping("/comment/{id}/like")
+    @PostMapping("/comment/{id}/likes")
     public void likeComment(@PathVariable Long id, HttpServletRequest request) {
         commentService.likeComment(id, request);
+    }
+
+    @GetMapping("/comment/{id}/likes")
+    public long getLikesCount(@PathVariable Long id) {
+        return commentService.getLikesCount(id);
+    }
+
+    @PostMapping("/comment/{id}/dislikes")
+    public void dislikeComment(@PathVariable Long id, HttpServletRequest request) {
+        commentService.dislikeComment(id, request);
+    }
+
+    @GetMapping("/comment/{id}/dislikes")
+    public long getDislikesCount(@PathVariable Long id) {
+        return commentService.getDislikesCount(id);
     }
 }
