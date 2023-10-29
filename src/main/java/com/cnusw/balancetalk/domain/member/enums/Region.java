@@ -1,4 +1,4 @@
-package com.cnusw.balancetalk.global.enums;
+package com.cnusw.balancetalk.domain.member.enums;
 
 public enum Region {
 

@@ -1,7 +1,7 @@
 package com.cnusw.balancetalk.domain.option.entity;
 
 import com.cnusw.balancetalk.domain.game.entity.Game;
-import com.cnusw.balancetalk.domain.vote.Vote;
+import com.cnusw.balancetalk.domain.vote.entity.Vote;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -11,6 +11,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToOne;
+import jakarta.persistence.Table;
 import lombok.*;
 
 @Entity
@@ -18,6 +19,7 @@ import lombok.*;
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 @Getter
 @Builder
+@Table(name = "options")
 public class Option {
 
     @Id
@@ -39,4 +41,8 @@ public class Option {
 
     @OneToOne(mappedBy = "option", fetch = FetchType.LAZY)
     private Vote vote;
+
+    public void addGame(Game game) {
+        this.game = game;
+    }
 }

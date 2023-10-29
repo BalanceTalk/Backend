@@ -1,6 +1,5 @@
 package com.cnusw.balancetalk.domain.option.controller.request;
 
-
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

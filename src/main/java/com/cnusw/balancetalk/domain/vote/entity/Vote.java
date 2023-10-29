@@ -1,7 +1,7 @@
-package com.cnusw.balancetalk.domain.vote;
+package com.cnusw.balancetalk.domain.vote.entity;
 
+import com.cnusw.balancetalk.domain.member.entity.Member;
 import com.cnusw.balancetalk.domain.option.entity.Option;
-import com.cnusw.balancetalk.domain.member.Member;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -26,11 +26,16 @@ public class Vote {
     @Column(name = "vote_id")
     private Long id;
 
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "option_id")
-    private Option option;
+//    private boolean isVotedFirstOption;
+//    private boolean isVotedSecondOption;
+
+//    private Long voterId;
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id")
     private Member member;
+
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "option_id")
+    private Option option;
 }

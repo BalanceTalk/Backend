@@ -1,16 +1,18 @@
-package com.cnusw.balancetalk.domain.member;
+package com.cnusw.balancetalk.domain.member.entity;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import com.cnusw.balancetalk.domain.comment.entity.CommentDislikes;
+import com.cnusw.balancetalk.domain.comment.entity.CommentLikes;
 import com.cnusw.balancetalk.domain.member.dto.request.MemberJoinRequest;
 import com.cnusw.balancetalk.domain.comment.entity.Comment;
 import com.cnusw.balancetalk.domain.game.entity.Game;
-import com.cnusw.balancetalk.domain.vote.Vote;
+import com.cnusw.balancetalk.domain.vote.entity.Vote;
 import com.cnusw.balancetalk.global.common.BaseTimeEntity;
-import com.cnusw.balancetalk.global.enums.Region;
+import com.cnusw.balancetalk.domain.member.enums.Region;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -60,6 +62,12 @@ public class Member extends BaseTimeEntity {
     @Builder.Default
     @OneToMany(mappedBy = "member")
     private List<Comment> comments = new ArrayList<>();
+
+    @OneToMany(mappedBy = "member")
+    private List<CommentLikes> commentLikes = new ArrayList<>();
+
+    @OneToMany(mappedBy = "member")
+    private List<CommentDislikes> commentDislikes = new ArrayList<>();
 
     @OneToOne(mappedBy = "member")
     private Vote vote;

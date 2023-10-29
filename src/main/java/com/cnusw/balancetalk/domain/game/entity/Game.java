@@ -6,7 +6,7 @@ import java.util.List;
 
 import com.cnusw.balancetalk.domain.comment.entity.Comment;
 import com.cnusw.balancetalk.domain.option.entity.Option;
-import com.cnusw.balancetalk.domain.member.Member;
+import com.cnusw.balancetalk.domain.member.entity.Member;
 import com.cnusw.balancetalk.global.common.BaseTimeEntity;
 
 import jakarta.persistence.Column;
@@ -52,4 +52,18 @@ public class Game extends BaseTimeEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id")
     private Member member;
+
+    // Add a column for the number of reports
+    @Builder.Default
+    @Setter
+    @Getter
+    @Column(nullable = false)
+    private long reports = 0;
+
+    // Add a column for whether the game is active or not
+    @Builder.Default
+    @Setter
+    @Column(nullable = false)
+    private boolean activation = true;
+
 }

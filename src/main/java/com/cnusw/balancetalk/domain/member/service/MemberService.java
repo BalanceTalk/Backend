@@ -1,4 +1,4 @@
-package com.cnusw.balancetalk.domain.member;
+package com.cnusw.balancetalk.domain.member.service;
 
 import java.util.NoSuchElementException;
 
@@ -7,6 +7,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
+import com.cnusw.balancetalk.domain.member.entity.Member;
+import com.cnusw.balancetalk.domain.member.repository.MemberRepository;
 import com.cnusw.balancetalk.domain.member.dto.request.MemberLoginRequest;
 import com.cnusw.balancetalk.domain.member.dto.response.MemberInfoResponse;
 import com.cnusw.balancetalk.domain.member.dto.request.MemberJoinRequest;
