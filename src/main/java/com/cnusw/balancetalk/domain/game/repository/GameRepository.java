@@ -17,8 +17,5 @@ public interface GameRepository extends JpaRepository<Game, Long> {
 
     public Game findGameById(Long id);
 
-    //member_id를 통해 로그인한 회원의 게시물을 모두 받아오는 메소드
-    public List<Game> findByMember(Member member);
-
     List<Game> findAllByActivationTrue(Sort sort);
 }

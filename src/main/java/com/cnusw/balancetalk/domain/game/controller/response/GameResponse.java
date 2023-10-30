@@ -2,6 +2,7 @@ package com.cnusw.balancetalk.domain.game.controller.response;
 
 
 import com.cnusw.balancetalk.domain.member.dto.response.MemberInfoResponse;
+import com.cnusw.balancetalk.domain.member.entity.Member;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -28,6 +29,25 @@ public class GameResponse {
     private String optionImgUrl2;
 
     public static GameResponse from(Game game) {
+        Option option1 = game.getOptions().get(0);
+        Option option2 = game.getOptions().get(1);
+        return GameResponse.builder()
+                .title(game.getTitle())
+                .playerCount(game.getPlayerCount())
+                .likes(game.getLikes())
+                .optionId1(option1.getId())
+                .optionId2(option2.getId())
+                .optionTitle1(option1.getTitle())
+                .optionTitle2(option2.getTitle())
+                .optionDescription1(option1.getDescription())
+                .optionDescription2(option2.getDescription())
+                .optionImgUrl1(option1.getImgUrl())
+                .optionImgUrl2(option2.getImgUrl())
+                .build();
+    }
+
+    public static GameResponse from(Member member) {
+
         Option option1 = game.getOptions().get(0);
         Option option2 = game.getOptions().get(1);
         return GameResponse.builder()

@@ -49,6 +49,10 @@ public class Game extends BaseTimeEntity {
     @OneToMany(mappedBy = "game")
     private List<Comment> comments = new ArrayList<>();
 
+    @Builder.Default
+    @OneToMany(mappedBy = "Tag")
+    private List<Tag> tags = new ArrayList<>();
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id")
     private Member member;

@@ -110,9 +110,7 @@ public class MemberService {
 
 
     /**
-     1. 멤버의 토큰을 받아온다.
-     2. 해당 토큰을 통해 멤버 아이디를 받아온다
-     3. 멤버 아이디를 통해 해당 멤버가 게시한 게시물 리스트를 받아온다.
+     멤버의 글 리스트를 받아오는 메소드
      */
     public List<GameResponse> getMyGames(HttpServletRequest servletRequest){
         String bearerToken = servletRequest.getHeader("Authorization");
@@ -131,6 +129,9 @@ public class MemberService {
         return games;
     }
 
+    /**
+     멤버의 댓글 리스트를 받아오는 메소드
+     */
     public List<CommentResponse> getMyComments(HttpServletRequest servletRequest){
         String bearerToken = servletRequest.getHeader("Authorization");
         String token = "";
@@ -148,5 +149,22 @@ public class MemberService {
 
         return comments;
     }
+
+    /*
+    public List<GameResponse> getMyGamesByLike(HttpServletRequest servletRequest){
+        String bearerToken = servletRequest.getHeader("Authorization");
+        String token = "";
+
+        if (StringUtils.hasText(bearerToken) && bearerToken.startsWith(TOKEN_PREFIX)) {
+            token = bearerToken.substring(TOKEN_PREFIX.length());
+        }
+
+        String email = jwtUtil.extractSubject(token);
+        Member member = memberRepository.findByEmail(email).orElseThrow();
+
+
+        return
+    }
+     */
 
 }

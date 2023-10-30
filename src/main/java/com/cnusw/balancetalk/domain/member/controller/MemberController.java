@@ -54,20 +54,29 @@ public class MemberController {
         return memberService.getMyInfo(request);
     }
 
-    @GetMapping("/mypage/gamelist")
+    @GetMapping("/mypage/games")
     @ResponseStatus(OK)
     @Operation(summary = "회원 게임 리스트", description = "로그인 되어 있는 회원의 게임 리스트로 이동한다.")
     public List<GameResponse> myGameList(HttpServletRequest servletRequest){
         return memberService.getMyGames(servletRequest);
     }
 
-    @GetMapping("/mypage/commentlist")
+    @GetMapping("/mypage/comments")
     @ResponseStatus(OK)
     @Operation(summary = "회원 댓글 리스트", description = "로그인 되어 있는 회원의 댓글 리스트로 이동한다.")
     public List<CommentResponse> myCommentList(HttpServletRequest servletRequest){
         return memberService.getMyComments(servletRequest);
     }
 
+    /*
+    게시물 좋아요 만들고 만들겠습니다 gyj
+    @GetMapping("/mypage/likes")
+    @ResponseStatus(OK)
+    @Operation(summary = "회원 좋아요 리스트", description = "로그인 되어 있는 회원의 좋아요 리스트로 이동한다.")
+    public List<GameResponse> myLikeList(HttpServletRequest servletRequest){
+        return memberService.getMyGamesByLike(servletRequest);
+    }
+    */
 
 
 
