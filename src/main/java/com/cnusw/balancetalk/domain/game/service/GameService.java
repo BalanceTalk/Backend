@@ -131,6 +131,9 @@ public class GameService {
             Option option2 = optionRepository.findOptionById(gameResponse.getOptionId2());
             int firstOptionVoteCount = voteRepository.findVotesByOption(option1.getId()).size();
             int secondOptionVoteCount = voteRepository.findVotesByOption(option2.getId()).size();
+            if (firstOptionVoteCount == 0 && secondOptionVoteCount == 0) {
+                return null;
+            }
             double percentage = (firstOptionVoteCount / (firstOptionVoteCount+secondOptionVoteCount)) * 100.0;
             if ((percentage <= 55) && (percentage >= 45) ) { goldenBalanceGameResponses.add(gameResponse); }
         }
