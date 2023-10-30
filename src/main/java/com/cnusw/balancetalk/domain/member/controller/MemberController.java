@@ -4,6 +4,7 @@ import static org.springframework.http.HttpStatus.*;
 
 import com.cnusw.balancetalk.domain.comment.repository.dto.response.CommentResponse;
 import com.cnusw.balancetalk.domain.game.controller.response.GameResponse;
+import com.cnusw.balancetalk.domain.game.entity.Game;
 import com.cnusw.balancetalk.domain.member.entity.Member;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -68,16 +69,13 @@ public class MemberController {
         return memberService.getMyComments(servletRequest);
     }
 
-    /*
-    게시물 좋아요 만들고 만들겠습니다 gyj
+
     @GetMapping("/mypage/likes")
     @ResponseStatus(OK)
     @Operation(summary = "회원 좋아요 리스트", description = "로그인 되어 있는 회원의 좋아요 리스트로 이동한다.")
-    public List<GameResponse> myLikeList(HttpServletRequest servletRequest){
+    public List<Game> myLikeList(HttpServletRequest servletRequest){
         return memberService.getMyGamesByLike(servletRequest);
     }
-    */
-
 
 
 }

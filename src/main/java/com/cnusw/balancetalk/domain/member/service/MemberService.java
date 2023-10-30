@@ -3,11 +3,14 @@ package com.cnusw.balancetalk.domain.member.service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import com.cnusw.balancetalk.domain.comment.repository.dto.response.CommentResponse;
 import com.cnusw.balancetalk.domain.game.controller.response.GameResponse;
 import com.cnusw.balancetalk.domain.game.entity.Game;
+import com.cnusw.balancetalk.domain.game.entity.GameLikes;
+import com.cnusw.balancetalk.domain.game.repository.GameLikesRepository;
 import com.cnusw.balancetalk.domain.game.repository.GameRepository;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -35,8 +38,9 @@ public class MemberService {
     private static final String TOKEN_PREFIX = "Bearer ";
 
     private final MemberRepository memberRepository;
-    private final GameRepository gameRepository;
     private final PasswordEncoder passwordEncoder;
+    private final GameRepository gameRepository;
+    private final GameLikesRepository gameLikesRepository;
     private final JwtUtil jwtUtil;
 
     /**
@@ -123,7 +127,8 @@ public class MemberService {
         String email = jwtUtil.extractSubject(token);
         Member member = memberRepository.findByEmail(email).orElseThrow();
 
-        List<GameResponse> games = member.getGames().stream().map(GameResponse::from)
+        List<GameResponse> games = member.getGames().stream()
+                .map(GameResponse::from)
                 .collect(Collectors.toList());
 
         return games;
@@ -150,21 +155,23 @@ public class MemberService {
         return comments;
     }
 
-    /*
-    public List<GameResponse> getMyGamesByLike(HttpServletRequest servletRequest){
+
+    public List<Game> getMyGamesByLike(HttpServletRequest servletRequest){
         String bearerToken = servletRequest.getHeader("Authorization");
         String token = "";
 
         if (StringUtils.hasText(bearerToken) && bearerToken.startsWith(TOKEN_PREFIX)) {
             token = bearerToken.substring(TOKEN_PREFIX.length());
         }
-
         String email = jwtUtil.extractSubject(token);
+
         Member member = memberRepository.findByEmail(email).orElseThrow();
-
-
-        return
+        List<GameLikes> gamelistbylike = gameLikesRepository.findAllById(member);
+        List<Game> games = gamelistbylike.stream()
+                .map(GameLikes::getGame)
+                .collect(Collectors.toList());
+        return games;
     }
-     */
+
 
 }

@@ -3,6 +3,7 @@ package com.cnusw.balancetalk.domain.member.entity;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.cnusw.balancetalk.domain.game.entity.GameLikes;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import com.cnusw.balancetalk.domain.comment.entity.CommentDislikes;
@@ -58,6 +59,9 @@ public class Member extends BaseTimeEntity {
     @Builder.Default
     @OneToMany(mappedBy = "member")
     private List<Game> games = new ArrayList<>();
+
+    @OneToMany(mappedBy = "member")
+    private List<GameLikes> gameLikes = new ArrayList<>();
 
     @Builder.Default
     @OneToMany(mappedBy = "member")
