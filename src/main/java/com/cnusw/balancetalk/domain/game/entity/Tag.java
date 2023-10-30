@@ -2,10 +2,7 @@ package com.cnusw.balancetalk.domain.game.entity;
 
 
 import com.cnusw.balancetalk.global.common.BaseTimeEntity;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.*;
 
 @Entity
@@ -22,5 +19,9 @@ public class Tag extends BaseTimeEntity {
 
     @Column(nullable = false, length = 10)
     private String content;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "game_id")
+    private  Game game;
 
 }
