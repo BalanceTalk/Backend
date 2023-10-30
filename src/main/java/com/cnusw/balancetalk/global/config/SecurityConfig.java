@@ -43,14 +43,14 @@ public class SecurityConfig {
                                 authorizeHttpRequests
 
                                         // 인증된 사용자에게만 접근 허용
-                                        .requestMatchers(
-                                                new AntPathRequestMatcher("/members/info"),
-                                                new AntPathRequestMatcher("/games/create"),
-                                                new AntPathRequestMatcher("/games/{id}/report"),
-                                                new AntPathRequestMatcher("/games/{id}/comment"),
-                                                new AntPathRequestMatcher("/comment/**"),
-                                                new AntPathRequestMatcher("/games/{gameId}/vote")
-                                        ).authenticated()
+//                                        .requestMatchers(
+//                                                new AntPathRequestMatcher("/members/info"),
+//                                                new AntPathRequestMatcher("/games/create"),
+//                                                new AntPathRequestMatcher("/games/{id}/report"),
+//                                                new AntPathRequestMatcher("/games/{id}/comment"),
+//                                                new AntPathRequestMatcher("/comment/**"),
+//                                                new AntPathRequestMatcher("/games/{gameId}/vote")
+//                                        ).authenticated()
 
                                         // 나머지 요청은 인증없이 접근을 허용
                                         .anyRequest().permitAll()
