@@ -1,7 +1,13 @@
 package com.cnusw.balancetalk.domain.member.service;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.stream.Collectors;
 
+import com.cnusw.balancetalk.domain.game.controller.response.GameResponse;
+import com.cnusw.balancetalk.domain.game.entity.Game;
+import com.cnusw.balancetalk.domain.game.repository.GameRepository;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -28,6 +34,7 @@ public class MemberService {
     private static final String TOKEN_PREFIX = "Bearer ";
 
     private final MemberRepository memberRepository;
+    private final GameRepository gameRepository;
     private final PasswordEncoder passwordEncoder;
     private final JwtUtil jwtUtil;
 
@@ -99,4 +106,28 @@ public class MemberService {
     private String extractEmailFromToken(String token) {
         return jwtUtil.extractSubject(token);
     }
+
+
+    /**
+     1. 멤버의 토큰을 받아온다.
+     2. 해당 토큰을 통해 멤버 아이디를 받아온다
+     3. 멤버 아이디를 통해 해당 멤버가 게시한 게시물 리스트를 받아온다.
+     */
+    public List<GameResponse> getMyGameList(HttpServletRequest servletRequest){
+        String bearerToken = servletRequest.getHeader("Authorization");
+        String token = "";
+
+        if (StringUtils.hasText(bearerToken) && bearerToken.startsWith(TOKEN_PREFIX)) {
+            token = bearerToken.substring(TOKEN_PREFIX.length());
+        }
+
+        String email = jwtUtil.extractSubject(token);
+        Member member = memberRepository.findByEmail(email).orElseThrow();
+
+        List<GameResponse> gameList = member.getGames().stream().map(GameResponse::from)
+                .collect(Collectors.toList());
+
+        return gameList;
+    }
+
 }

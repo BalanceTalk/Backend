@@ -1,6 +1,7 @@
 package com.cnusw.balancetalk.domain.game.controller.response;
 
 
+import com.cnusw.balancetalk.domain.member.dto.response.MemberInfoResponse;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -43,4 +44,5 @@ public class GameResponse {
                 .optionImgUrl2(option2.getImgUrl())
                 .build();
     }
+
 }

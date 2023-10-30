@@ -36,7 +36,10 @@ public class GameService {
     private final MemberRepository memberRepository;
     private final JwtUtil jwtUtil;
 
-    //게임 제작
+    /**
+     1. HTTP 헤더에서 요청으로 온 토큰을 받는다.
+     2. 사용자 정보를 받고, 사용자가 입력한 게임 정보를 저장한다.
+     */
     public Long createGame(GameRequest gameRequest, HttpServletRequest servletRequest) {
         String bearerToken = servletRequest.getHeader("Authorization");
 

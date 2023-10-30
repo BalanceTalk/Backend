@@ -2,6 +2,8 @@ package com.cnusw.balancetalk.domain.member.controller;
 
 import static org.springframework.http.HttpStatus.*;
 
+import com.cnusw.balancetalk.domain.game.controller.response.GameResponse;
+import com.cnusw.balancetalk.domain.member.entity.Member;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -19,6 +21,8 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+
+import java.util.List;
 
 @Tag(name = "member", description = "회원 API")
 @RestController
@@ -42,10 +46,19 @@ public class MemberController {
         return memberService.login(request);
     }
 
-    @GetMapping("/info")
+    @GetMapping("/mypage")
     @ResponseStatus(OK)
-    @Operation(summary = "회원 정보 조회", description = "로그인 되어 있는 회원 정보를 가져온다.")
+    @Operation(summary = "마이 페이지", description = "로그인 되어 있는 회원 정보를 가져온다.")
     public MemberInfoResponse myInfo(HttpServletRequest request) {
         return memberService.getMyInfo(request);
     }
+
+    @GetMapping("/mypage/gamelist")
+    @ResponseStatus(OK)
+    @Operation(summary = "회원 게임 리스트", description = "로그인 되어 있는 회원의 게임 리스트로 이동한다.")
+    public List<GameResponse> myGameList(HttpServletRequest servletRequest){
+        return memberService.getMyGameList(servletRequest);
+    }
+
+
 }
