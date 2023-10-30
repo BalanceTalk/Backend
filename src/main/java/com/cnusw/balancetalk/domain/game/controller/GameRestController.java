@@ -34,6 +34,13 @@ public class GameRestController {
         return ResponseEntity.ok(gameService.createGame(request, servletRequest));
     }
 
+    @GetMapping("/games/search")
+    @Operation(summary = "게임 검색", description = "게임을 검색한다.")
+    public List<GameResponse> search(@RequestParam(value = "searchKeyword") String keyword) {
+        List<GameResponse> gameResponseList = gameService.searchGames(keyword);
+        return gameResponseList;
+    }
+
     @GetMapping("/games")
     @Operation(summary = "모든 게임 조회", description = "모든 게임을 지정한 정렬 방법으로 가져온다.")
     public List<GameResponse> getGames(@Parameter(name = "sortBy", description = "정렬 방법") @RequestParam(name = "sortBy", required = false) String sortBy) {

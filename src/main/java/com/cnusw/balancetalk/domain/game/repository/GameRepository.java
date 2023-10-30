@@ -16,5 +16,7 @@ public interface GameRepository extends JpaRepository<Game, Long> {
 
     Game findGameById(Long id);
 
+    List<Game> findByTitleContaining(String keyword);
+
     List<Game> findAllByActivationTrue(Sort sort);
 }

@@ -1,0 +1,23 @@
+#원래는 .gitignore에 넣어야하는 정보들이지만 그냥 올립니다!
+spring:
+  security:
+    oauth2:
+      client:
+        registration:
+          twitch:
+            client-id: <Input Your Client ID>
+            client-secret: <Input Your Client Secret>
+            client-authentication-method: POST
+            scope: <Want to get permission code>
+            authorization-grant-type: authorization_code
+            provider: twitch
+            client-name: Twitch
+            redirect-uri: {baseUrl}/{action}/oauth2/code/{registrationId}
+        provider:
+          twitch:
+            authorization-uri: https://id.twitch.tv/oauth2/authorize?response_type=code
+            token-uri: https://id.twitch.tv/oauth2/token
+            user-info-uri: https://id.twitch.tv/oauth2/userinfo
+            user-info-authentication-method: POST
+            jwk-set-uri: https://id.twitch.tv/oauth2/keys
+            user-name-attribute: sub

@@ -81,6 +81,20 @@ public class GameService {
         return game.getId();
     }
 
+    // 검색창에서 입력한 키워드가 제목에 들어있는 게임 찾기
+    public List<GameResponse> searchGames(String keyword) {
+        List<Game> gameList = gameRepository.findByTitleContaining(keyword);
+        List<GameResponse> gameResponseList = new ArrayList<>();
+
+        if (gameList.isEmpty()) return gameResponseList;
+
+        for(Game game : gameList) {
+            gameResponseList.add(GameResponse.from(game));
+        }
+
+        return gameResponseList;
+    }
+
     public GameResponse findById(Long id) {
         Game game = gameRepository.findById(id).orElseThrow();
         return GameResponse.from(game);
