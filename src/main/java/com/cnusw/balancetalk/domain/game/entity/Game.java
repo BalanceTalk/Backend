@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.cnusw.balancetalk.domain.comment.entity.Comment;
+import com.cnusw.balancetalk.domain.comment.entity.CommentLikes;
 import com.cnusw.balancetalk.domain.option.entity.Option;
 import com.cnusw.balancetalk.domain.member.entity.Member;
 import com.cnusw.balancetalk.global.common.BaseTimeEntity;
@@ -39,7 +40,8 @@ public class Game extends BaseTimeEntity {
 
     private long playerCount;
 
-    private long likes;
+    @OneToMany(mappedBy = "game")
+    private List<GameLikes> likes = new ArrayList<>();
 
     @Builder.Default
     @OneToMany(mappedBy = "game")
