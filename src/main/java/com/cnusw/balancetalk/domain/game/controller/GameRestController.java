@@ -67,5 +67,14 @@ public class GameRestController {
         return ResponseEntity.ok("Game has been reported.");
     }
 
+    @PostMapping("/games/{id}/likes")
+    public void likeComment(@PathVariable Long id, HttpServletRequest request) {
+        gameService.likeGame(id, request);
+    }
+
+    @GetMapping("/games/{id}/likes")
+    public long getLikesCount(@PathVariable Long id) {
+        return gameService.getLikesCount(id);
+    }
 }
 

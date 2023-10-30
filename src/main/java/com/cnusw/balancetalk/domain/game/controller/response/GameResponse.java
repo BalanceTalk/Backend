@@ -34,7 +34,7 @@ public class GameResponse {
         return GameResponse.builder()
                 .title(game.getTitle())
                 .playerCount(game.getPlayerCount())
-                .likes(game.getLikes())
+                .likes(game.getLikes().size())
                 .optionId1(option1.getId())
                 .optionId2(option2.getId())
                 .optionTitle1(option1.getTitle())
