@@ -2,6 +2,7 @@ package com.cnusw.balancetalk.domain.member.controller;
 
 import static org.springframework.http.HttpStatus.*;
 
+import com.cnusw.balancetalk.domain.comment.repository.dto.response.CommentResponse;
 import com.cnusw.balancetalk.domain.game.controller.response.GameResponse;
 import com.cnusw.balancetalk.domain.member.entity.Member;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -57,8 +58,17 @@ public class MemberController {
     @ResponseStatus(OK)
     @Operation(summary = "회원 게임 리스트", description = "로그인 되어 있는 회원의 게임 리스트로 이동한다.")
     public List<GameResponse> myGameList(HttpServletRequest servletRequest){
-        return memberService.getMyGameList(servletRequest);
+        return memberService.getMyGames(servletRequest);
     }
+
+    @GetMapping("/mypage/commentlist")
+    @ResponseStatus(OK)
+    @Operation(summary = "회원 댓글 리스트", description = "로그인 되어 있는 회원의 댓글 리스트로 이동한다.")
+    public List<CommentResponse> myCommentList(HttpServletRequest servletRequest){
+        return memberService.getMyComments(servletRequest);
+    }
+
+
 
 
 }
