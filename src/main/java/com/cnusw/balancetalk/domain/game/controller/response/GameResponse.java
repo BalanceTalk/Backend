@@ -25,6 +25,7 @@ public class GameResponse {
     private String optionDescription2;
     private String optionImgUrl1;
     private String optionImgUrl2;
+    private boolean goldBalance;
 
     public static GameResponse from(Game game) {
         Option option1 = game.getOptions().get(0);
@@ -41,6 +42,7 @@ public class GameResponse {
                 .optionDescription2(option2.getDescription())
                 .optionImgUrl1(option1.getImgUrl())
                 .optionImgUrl2(option2.getImgUrl())
+                .goldBalance(game.isGoldBalance())
                 .build();
     }
 }

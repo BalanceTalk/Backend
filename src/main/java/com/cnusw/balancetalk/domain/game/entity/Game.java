@@ -56,12 +56,10 @@ public class Game extends BaseTimeEntity {
     private Member member;
 
     // Add a column for indicate whether it is gold-balance or not
-    /*
     @Builder.Default
     @Setter
     @Getter
-    private boolean isGoldBalance = false;
-    */
+    private boolean goldBalance = false;
 
     // Add a column for the number of reports
     @Builder.Default

@@ -45,7 +45,11 @@ public class CommentService {
         log.info("comments={}",game.getComments());
 
         return game.getComments().stream()
-                .map(CommentResponse::of)
+                .map(comment -> {
+                    if (comment.isActivation()) {
+                        return CommentResponse.of(comment);
+                    } else return CommentResponse.deactivatedOf(comment);
+                })
                 .collect(Collectors.toList());
     }
 
