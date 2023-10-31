@@ -3,6 +3,7 @@ package com.cnusw.balancetalk.domain.member.entity;
 import java.util.ArrayList;
 import java.util.List;
 
+import lombok.*;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import com.cnusw.balancetalk.domain.comment.entity.CommentDislikes;
@@ -22,12 +23,6 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
-
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
 
 @Entity
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -54,6 +49,21 @@ public class Member extends BaseTimeEntity {
 
     @Enumerated(EnumType.STRING)
     private Region region;
+
+    @Builder.Default
+    @Setter
+    @Getter
+    private long level = 1;
+
+    @Builder.Default
+    @Setter
+    @Getter
+    private long exp = 0;
+
+    @Builder.Default
+    @Setter
+    @Getter
+    private long credit = 0;
 
     @Builder.Default
     @OneToMany(mappedBy = "member")
