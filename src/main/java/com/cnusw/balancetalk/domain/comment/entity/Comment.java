@@ -33,6 +33,8 @@ public class Comment extends BaseTimeEntity {
     @Column(nullable = false)
     private String content;
 
+    private final String deletedContent = "-- 블라인드 처리된 댓글입니다 --";
+
     @OneToMany(mappedBy = "comment")
     private List<CommentLikes> likes = new ArrayList<>();
 

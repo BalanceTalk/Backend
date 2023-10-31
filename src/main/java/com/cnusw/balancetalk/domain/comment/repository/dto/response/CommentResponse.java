@@ -16,4 +16,11 @@ public class CommentResponse {
                 .content(comment.getContent())
                 .build();
     }
+
+    public static CommentResponse deactivatedOf(Comment comment) {
+        return CommentResponse.builder()
+                .content(comment.getDeletedContent())
+                .build();
+    }
+
 }

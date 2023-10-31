@@ -152,8 +152,8 @@ public class GameService {
             if (firstOptionVoteCount == 0 && secondOptionVoteCount == 0) {
                 return null;
             }
-            double percentage = (firstOptionVoteCount / (firstOptionVoteCount+secondOptionVoteCount)) * 100.0;
-            if ((percentage <= 55) && (percentage >= 45) ) { goldenBalanceGameResponses.add(gameResponse); }
+            double percentage = ((double) firstOptionVoteCount / (firstOptionVoteCount+secondOptionVoteCount)) * 100.0;
+            if (gameResponse.isGoldBalance()) { goldenBalanceGameResponses.add(gameResponse); }
         }
 
         return CategoryGamesResponse.from(goldenBalanceGameResponses, Category.GOLDENBALANCE);
