@@ -125,6 +125,22 @@ public class GameService {
         return convertToGameResponseList(games);
     }
 
+    public void updateGoldBalance(Game game) {
+        List<Option> options = game.getOptions();
+        if (options.size() == 2) {
+
+            Option option1 = options.get(0);
+            Option option2 = options.get(1);
+
+            int firstOptionVoteCount = voteRepository.findVotesByOption(option1.getId()).size();
+            int secondOptionVoteCount = voteRepository.findVotesByOption(option2.getId()).size();
+
+            double percentage = ((double) firstOptionVoteCount / (firstOptionVoteCount + secondOptionVoteCount)) * 100.0;
+
+            game.setGoldBalance(Math.abs(percentage - 50.0) < 5.0);
+        }
+    }
+
     // getmapping('/')
     // 메인페이지.
     // 여러 카테고리의 게임리스트를 하나의 리스트로 전달.
@@ -152,7 +168,6 @@ public class GameService {
             if (firstOptionVoteCount == 0 && secondOptionVoteCount == 0) {
                 return null;
             }
-            double percentage = ((double) firstOptionVoteCount / (firstOptionVoteCount+secondOptionVoteCount)) * 100.0;
             if (gameResponse.isGoldBalance()) { goldenBalanceGameResponses.add(gameResponse); }
         }
 

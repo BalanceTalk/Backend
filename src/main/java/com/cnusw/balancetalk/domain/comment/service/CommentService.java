@@ -14,6 +14,7 @@ import com.cnusw.balancetalk.domain.member.repository.MemberRepository;
 import com.cnusw.balancetalk.domain.game.entity.Game;
 import com.cnusw.balancetalk.domain.game.repository.GameRepository;
 import com.cnusw.balancetalk.domain.member.entity.Member;
+import com.cnusw.balancetalk.domain.member.service.MemberService;
 import com.cnusw.balancetalk.global.jwt.JwtUtil;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
@@ -36,6 +37,8 @@ public class CommentService {
     private final CommentDislikesRepository commentDislikesRepository;
     private final GameRepository gameRepository;
     private final MemberRepository memberRepository;
+
+    private final MemberService memberService;
 
     private static final String TOKEN_PREFIX = "Bearer ";
     private final JwtUtil jwtUtil;
@@ -63,6 +66,16 @@ public class CommentService {
                 .orElseThrow();
 
         Comment comment = commentRepository.save(commentRequest.toEntity(game, member));
+
+        // Increase 5 EXP for commentMaker
+        boolean levelUpdated = memberService.updateMemberLevel(member.getId(), 5);
+        if(levelUpdated) {
+            // If level increased, player can earn 100 credit
+            member.setCredit(member.getCredit() + 100);
+            log.info("Member {} leveled up to level {}", member.getId(), member.getLevel());
+            log.info("Member {} earned credit {}", member.getId(), 100);
+        }
+
         return Optional.of(comment);
     }
 
