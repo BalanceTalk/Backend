@@ -43,4 +43,10 @@ public class CommentController {
     public void likeComment(@PathVariable Long id, HttpServletRequest request) {
         commentService.likeComment(id, request);
     }
+
+    @PostMapping("/comment/{id}/report")
+    public void reportComment(@PathVariable Long id, HttpServletRequest request) {
+        commentService.reportComment(id, request);
+    }
+
 }

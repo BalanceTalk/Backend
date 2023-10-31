@@ -58,13 +58,11 @@ public class Game extends BaseTimeEntity {
     @Builder.Default
     @Setter
     @Getter
-    @Column(nullable = false)
     private long reports = 0;
 
     // Add a column for whether the game is active or not
     @Builder.Default
     @Setter
-    @Column(nullable = false)
     private boolean activation = true;
 
 }
