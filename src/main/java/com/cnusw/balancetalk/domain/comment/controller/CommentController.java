@@ -1,8 +1,8 @@
 package com.cnusw.balancetalk.domain.comment.controller;
 
-import com.cnusw.balancetalk.domain.comment.dto.response.CommentResponse;
+import com.cnusw.balancetalk.domain.comment.repository.dto.response.CommentResponse;
 import com.cnusw.balancetalk.domain.comment.service.CommentService;
-import com.cnusw.balancetalk.domain.comment.dto.request.CommentRequest;
+import com.cnusw.balancetalk.domain.comment.repository.dto.request.CommentRequest;
 import com.cnusw.balancetalk.domain.comment.entity.Comment;
 
 import io.swagger.v3.oas.annotations.Operation;
@@ -39,7 +39,7 @@ public class CommentController {
         return CommentResponse.of(comment);
     }
 
-    @PostMapping("/comment/{id}/like")
+    @PostMapping("/comment/{id}/likes")
     public void likeComment(@PathVariable Long id, HttpServletRequest request) {
         commentService.likeComment(id, request);
     }
@@ -48,5 +48,19 @@ public class CommentController {
     public void reportComment(@PathVariable Long id, HttpServletRequest request) {
         commentService.reportComment(id, request);
     }
+  
+    @GetMapping("/comment/{id}/likes")
+    public long getLikesCount(@PathVariable Long id) {
+        return commentService.getLikesCount(id);
+    }
 
+    @PostMapping("/comment/{id}/dislikes")
+    public void dislikeComment(@PathVariable Long id, HttpServletRequest request) {
+        commentService.dislikeComment(id, request);
+    }
+
+    @GetMapping("/comment/{id}/dislikes")
+    public long getDislikesCount(@PathVariable Long id) {
+        return commentService.getDislikesCount(id);
+    }
 }

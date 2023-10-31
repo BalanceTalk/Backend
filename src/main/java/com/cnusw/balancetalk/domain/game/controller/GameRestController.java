@@ -2,16 +2,14 @@ package com.cnusw.balancetalk.domain.game.controller;
 
 
 import com.cnusw.balancetalk.domain.game.controller.request.GameRequest;
+import com.cnusw.balancetalk.domain.game.controller.response.CategoryGamesResponse;
 import com.cnusw.balancetalk.domain.game.controller.response.GameResponse;
 import com.cnusw.balancetalk.domain.game.service.GameService;
-
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.HttpServletRequest;
-
 import lombok.RequiredArgsConstructor;
-
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -23,6 +21,12 @@ import java.util.List;
 public class GameRestController {
 
     private final GameService gameService;
+
+    @GetMapping("/")
+    @Operation(summary = "메인페이지", description = "여러 카테고리의 게임을 리스트로 보여준다")
+    public List<CategoryGamesResponse> getCategoryGames() {
+        return gameService.getCategoryGamesList();
+    }
 
     @PostMapping("/games/create")
     @Operation(summary = "게임 제작", description = "게임을 제작한다.")
@@ -65,5 +69,14 @@ public class GameRestController {
         return ResponseEntity.ok("Game has been reported.");
     }
 
+    @PostMapping("/games/{id}/likes")
+    public void likeComment(@PathVariable Long id, HttpServletRequest request) {
+        gameService.likeGame(id, request);
+    }
+
+    @GetMapping("/games/{id}/likes")
+    public long getLikesCount(@PathVariable Long id) {
+        return gameService.getLikesCount(id);
+    }
 }
 

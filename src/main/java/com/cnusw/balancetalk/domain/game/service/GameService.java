@@ -1,17 +1,22 @@
 package com.cnusw.balancetalk.domain.game.service;
 
-
-
+import com.cnusw.balancetalk.domain.comment.entity.Comment;
+import com.cnusw.balancetalk.domain.comment.entity.CommentLikes;
+import com.cnusw.balancetalk.domain.comment.repository.CommentLikesRepository;
 import com.cnusw.balancetalk.domain.game.controller.request.GameRequest;
+import com.cnusw.balancetalk.domain.game.controller.response.CategoryGamesResponse;
 import com.cnusw.balancetalk.domain.game.controller.response.GameResponse;
 import com.cnusw.balancetalk.domain.game.entity.Game;
+import com.cnusw.balancetalk.domain.game.entity.GameLikes;
+import com.cnusw.balancetalk.domain.game.enums.Category;
+import com.cnusw.balancetalk.domain.game.repository.GameLikesRepository;
 import com.cnusw.balancetalk.domain.game.repository.GameRepository;
 import com.cnusw.balancetalk.domain.member.entity.Member;
 import com.cnusw.balancetalk.domain.member.repository.MemberRepository;
-import com.cnusw.balancetalk.domain.member.service.MemberService;
 import com.cnusw.balancetalk.domain.option.entity.Option;
 import com.cnusw.balancetalk.domain.option.repository.OptionRepository;
 import com.cnusw.balancetalk.global.jwt.JwtUtil;
+import com.cnusw.balancetalk.domain.vote.repository.VoteRepository;
 
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
@@ -22,6 +27,7 @@ import org.springframework.util.StringUtils;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -31,7 +37,9 @@ public class GameService {
     private static final String TOKEN_PREFIX = "Bearer ";
 
     private final GameRepository gameRepository;
+    private final GameLikesRepository gameLikesRepository;
     private final OptionRepository optionRepository;
+    private final VoteRepository voteRepository;
     private final MemberRepository memberRepository;
     private final JwtUtil jwtUtil;
 
@@ -85,29 +93,84 @@ public class GameService {
         return GameResponse.from(game);
     }
 
+    // 인기순으로 게임 정렬 리스트 반환
     public List<GameResponse> getGamesSortedByPopularity() {
-        // 인기순
         Sort sort = Sort.by(Sort.Order.desc("likes"));
         List<Game> games = gameRepository.findAllByActivationTrue(sort);
         return convertToGameResponseList(games);
     }
 
+    // 조회수순으로 게임 정렬 리스트 반환
     public List<GameResponse> getGamesSortedByViews() {
-        // 조회수순
         Sort sort = Sort.by(Sort.Order.desc("playerCount"));
         List<Game> games = gameRepository.findAllByActivationTrue(sort);
         return convertToGameResponseList(games);
     }
 
+    // 최신순으로 게임 정렬 리스트 반환
     public List<GameResponse> getGamesSortedByLatest() {
-        // 최신순
         Sort sort = Sort.by(Sort.Order.desc("createdAt"));
         List<Game> games = gameRepository.findAllByActivationTrue(sort);
         return convertToGameResponseList(games);
     }
 
+    // getmapping('/')
+    // 메인페이지.
+    // 여러 카테고리의 게임리스트를 하나의 리스트로 전달.
+    public List<CategoryGamesResponse> getCategoryGamesList() {
+        List<CategoryGamesResponse> categoryGamesResponses = new ArrayList<>();
+        categoryGamesResponses.add(getCategoryGamesOfGoldenBalance());
+        categoryGamesResponses.add(getCategoryGamesOfPopularity());
+        categoryGamesResponses.add(getCategoryGamesOfViews());
+        categoryGamesResponses.add(getCategoryGamesOfLatest());
+        return categoryGamesResponses;
+    }
+
+    // 황금밸런스 카테고리
+    // GameResponse 리스트와 카테고리를 CategoryGamesResponse Dto로 변환 후 반환
+    private CategoryGamesResponse getCategoryGamesOfGoldenBalance() {
+        List<Game> games = gameRepository.findAll();
+        List<GameResponse> allGameResponses = convertToGameResponseList(games);
+        List<GameResponse> goldenBalanceGameResponses = new ArrayList<>();
+
+        for (GameResponse gameResponse : allGameResponses) {
+            Option option1 = optionRepository.findOptionById(gameResponse.getOptionId1());
+            Option option2 = optionRepository.findOptionById(gameResponse.getOptionId2());
+            int firstOptionVoteCount = voteRepository.findVotesByOption(option1.getId()).size();
+            int secondOptionVoteCount = voteRepository.findVotesByOption(option2.getId()).size();
+            if (firstOptionVoteCount == 0 && secondOptionVoteCount == 0) {
+                return null;
+            }
+            double percentage = (firstOptionVoteCount / (firstOptionVoteCount+secondOptionVoteCount)) * 100.0;
+            if ((percentage <= 55) && (percentage >= 45) ) { goldenBalanceGameResponses.add(gameResponse); }
+        }
+
+        return CategoryGamesResponse.from(goldenBalanceGameResponses, Category.GOLDENBALANCE);
+    }
+
+    // 인기순 카테고리
+    // GameResponse 리스트와 카테고리를 CategoryGamesResponse Dto로 변환 후 반환
+    private CategoryGamesResponse getCategoryGamesOfPopularity() {
+        List<GameResponse> gameResponses = getGamesSortedByPopularity();
+        return CategoryGamesResponse.from(gameResponses, Category.POPULARITY);
+    }
+
+    // 조회수순 카테고리
+    // GameResponse 리스트와 카테고리를 CategoryGamesResponse Dto로 변환 후 반환
+    private CategoryGamesResponse getCategoryGamesOfViews() {
+        List<GameResponse> gameResponses = getGamesSortedByViews();
+        return CategoryGamesResponse.from(gameResponses, Category.VIEWS);
+    }
+
+    // 최신순 카테고리
+    // GameResponse 리스트와 카테고리를 CategoryGamesResponse Dto로 변환 후 반환
+    private CategoryGamesResponse getCategoryGamesOfLatest() {
+        List<GameResponse> gameResponses = getGamesSortedByViews();
+        return CategoryGamesResponse.from(gameResponses, Category.LATEST);
+    }
+
+    // Game 엔티티를 GameResponse로 변환하여 리스트로 반환
     private List<GameResponse> convertToGameResponseList(List<Game> games) {
-        // Game 엔티티를 GameResponse로 변환하여 리스트로 반환
         List<GameResponse> gameResponses = new ArrayList<>();
         for (Game game : games) {
             gameResponses.add(GameResponse.from(game));
@@ -122,6 +185,49 @@ public class GameService {
         if (currentReports + 1 >= 5) {
             game.setActivation(false);
         }
+    }
+
+    public void likeGame(Long gameId, HttpServletRequest request) {
+        String memberEmail = extractEmailFromToken(extractToken(request));
+        Member member = memberRepository.findByEmail(memberEmail)
+                .orElseThrow();
+
+        Game game = gameRepository.findById(gameId)
+                .orElseThrow();
+
+        Optional<GameLikes> byMember = gameLikesRepository.findByMemberAndGame(member, game);
+        if (byMember.isPresent()) {
+            return;
+        }
+
+        GameLikes gameLikes = GameLikes.builder()
+                .member(member)
+                .game(game)
+                .build();
+        gameLikesRepository.save(gameLikes);
+    }
+
+    public long getLikesCount(Long gameId) {
+        return gameRepository.findById(gameId)
+                .orElseThrow()
+                .getLikes()
+                .size();
+    }
+
+    // 요청 헤더에서 토큰 추출
+    private String extractToken(HttpServletRequest request) {
+        String bearerToken = request.getHeader("Authorization");
+
+        if (StringUtils.hasText(bearerToken) && bearerToken.startsWith(TOKEN_PREFIX)) {
+            return bearerToken.substring(TOKEN_PREFIX.length());
+        }
+
+        return null;
+    }
+
+    // 토큰에서 이메일 정보 추출
+    private String extractEmailFromToken(String token) {
+        return jwtUtil.extractSubject(token);
     }
 }
 

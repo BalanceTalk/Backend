@@ -36,7 +36,8 @@ public class Comment extends BaseTimeEntity {
     @OneToMany(mappedBy = "comment")
     private List<CommentLikes> likes = new ArrayList<>();
 
-    private long dislikes;
+    @OneToMany(mappedBy = "comment")
+    private List<CommentDislikes> dislikes = new ArrayList<>();
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "game_id")

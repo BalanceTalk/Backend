@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import com.cnusw.balancetalk.domain.comment.entity.CommentDislikes;
 import com.cnusw.balancetalk.domain.comment.entity.CommentLikes;
 import com.cnusw.balancetalk.domain.member.dto.request.MemberJoinRequest;
 import com.cnusw.balancetalk.domain.comment.entity.Comment;
@@ -18,7 +19,6 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
@@ -37,7 +37,7 @@ import lombok.NoArgsConstructor;
 public class Member extends BaseTimeEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue
     @Column(name = "member_id")
     private Long id;
 
@@ -65,6 +65,9 @@ public class Member extends BaseTimeEntity {
 
     @OneToMany(mappedBy = "member")
     private List<CommentLikes> commentLikes = new ArrayList<>();
+
+    @OneToMany(mappedBy = "member")
+    private List<CommentDislikes> commentDislikes = new ArrayList<>();
 
     @OneToOne(mappedBy = "member")
     private Vote vote;

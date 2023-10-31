@@ -1,10 +1,12 @@
 package com.cnusw.balancetalk.domain.comment.service;
 
-import com.cnusw.balancetalk.domain.comment.dto.request.CommentRequest;
-import com.cnusw.balancetalk.domain.comment.dto.response.CommentResponse;
+import com.cnusw.balancetalk.domain.comment.repository.dto.request.CommentRequest;
+import com.cnusw.balancetalk.domain.comment.repository.dto.response.CommentResponse;
 import com.cnusw.balancetalk.domain.comment.entity.Comment;
+import com.cnusw.balancetalk.domain.comment.entity.CommentDislikes;
 import com.cnusw.balancetalk.domain.comment.entity.CommentLikes;
 import com.cnusw.balancetalk.domain.comment.entity.CommentReports;
+import com.cnusw.balancetalk.domain.comment.repository.CommentDislikesRepository;
 import com.cnusw.balancetalk.domain.comment.repository.CommentLikesRepository;
 import com.cnusw.balancetalk.domain.comment.repository.CommentReportsRepository;
 import com.cnusw.balancetalk.domain.comment.repository.CommentRepository;
@@ -31,6 +33,7 @@ public class CommentService {
     private final CommentRepository commentRepository;
     private final CommentLikesRepository commentLikesRepository;
     private final CommentReportsRepository commentReportsRepository;
+    private final CommentDislikesRepository commentDislikesRepository;
     private final GameRepository gameRepository;
     private final MemberRepository memberRepository;
 
@@ -77,6 +80,40 @@ public class CommentService {
                 .comment(comment)
                 .build();
         commentLikesRepository.save(commentLikes);
+    }
+
+    public long getLikesCount(Long commentId) {
+        return commentRepository.findById(commentId)
+                .orElseThrow()
+                .getLikes()
+                .size();
+    }
+
+    public void dislikeComment(Long commentId, HttpServletRequest request) {
+        String memberEmail = extractEmailFromToken(extractToken(request));
+        Member member = memberRepository.findByEmail(memberEmail)
+                .orElseThrow();
+
+        Comment comment = commentRepository.findById(commentId)
+                .orElseThrow();
+
+        Optional<CommentDislikes> byMember = commentDislikesRepository.findByMemberAndComment(member, comment);
+        if (byMember.isPresent()) {
+            return;
+        }
+
+        CommentDislikes commentDislikes = CommentDislikes.builder()
+                .member(member)
+                .comment(comment)
+                .build();
+        commentDislikesRepository.save(commentDislikes);
+    }
+
+    public long getDislikesCount(Long commentId) {
+        return commentRepository.findById(commentId)
+                .orElseThrow()
+                .getDislikes()
+                .size();
     }
 
     // 요청 헤더에서 토큰 추출
