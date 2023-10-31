@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.cnusw.balancetalk.domain.game.entity.Game;
 import com.cnusw.balancetalk.domain.game.repository.GameRepository;
+import com.cnusw.balancetalk.domain.game.service.GameService;
 import com.cnusw.balancetalk.domain.member.entity.Member;
 import com.cnusw.balancetalk.domain.member.repository.MemberRepository;
 import com.cnusw.balancetalk.domain.option.entity.Option;
@@ -30,6 +31,7 @@ public class VoteService {
     private final GameRepository gameRepository;
     private final VoteRepository voteRepository;
     private final MemberRepository memberRepository;
+    private final GameService gameService;
     private final JwtUtil jwtUtil;
 
     public Vote vote(Long gameId, String selectedOptionTitle, HttpServletRequest servletRequest) {
@@ -63,6 +65,9 @@ public class VoteService {
                 .option(selectedOption)
                 .build();
         //game.setSecondOptionVotedCount(game.getSecondOptionVotedCount() + 1);
+
+        gameService.updateGoldBalance(game);
+
         return voteRepository.save(vote);
     }
 
