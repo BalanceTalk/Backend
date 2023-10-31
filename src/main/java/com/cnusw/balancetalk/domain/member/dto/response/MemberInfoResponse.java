@@ -17,6 +17,9 @@ public class MemberInfoResponse {
     private String nickname;
     private int age;
     private Region region;
+    private long level;
+    private long exp;
+    private long credit;
 
     public static MemberInfoResponse from(Member member) {
         return MemberInfoResponse.builder()
@@ -24,6 +27,9 @@ public class MemberInfoResponse {
                 .nickname(member.getNickname())
                 .age(member.getAge())
                 .region(member.getRegion())
+                .level(member.getLevel())
+                .exp(member.getExp())
+                .credit(member.getCredit())
                 .build();
     }
 }

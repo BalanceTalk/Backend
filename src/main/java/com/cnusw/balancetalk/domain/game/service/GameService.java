@@ -1,8 +1,7 @@
 package com.cnusw.balancetalk.domain.game.service;
 
-import com.cnusw.balancetalk.domain.comment.entity.Comment;
-import com.cnusw.balancetalk.domain.comment.entity.CommentLikes;
-import com.cnusw.balancetalk.domain.comment.repository.CommentLikesRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import com.cnusw.balancetalk.domain.game.controller.request.GameRequest;
 import com.cnusw.balancetalk.domain.game.controller.response.CategoryGamesResponse;
 import com.cnusw.balancetalk.domain.game.controller.response.GameResponse;
@@ -13,6 +12,7 @@ import com.cnusw.balancetalk.domain.game.repository.GameLikesRepository;
 import com.cnusw.balancetalk.domain.game.repository.GameRepository;
 import com.cnusw.balancetalk.domain.member.entity.Member;
 import com.cnusw.balancetalk.domain.member.repository.MemberRepository;
+import com.cnusw.balancetalk.domain.member.service.MemberService;
 import com.cnusw.balancetalk.domain.option.entity.Option;
 import com.cnusw.balancetalk.domain.option.repository.OptionRepository;
 import com.cnusw.balancetalk.global.jwt.JwtUtil;
@@ -42,6 +42,9 @@ public class GameService {
     private final VoteRepository voteRepository;
     private final MemberRepository memberRepository;
     private final JwtUtil jwtUtil;
+
+    private final MemberService memberService;
+    private static final Logger log = LoggerFactory.getLogger(GameService.class);
 
     //게임 제작
     public Long createGame(GameRequest gameRequest, HttpServletRequest servletRequest) {
@@ -85,6 +88,14 @@ public class GameService {
         optionRepository.save(option1);
         optionRepository.save(option2);
 
+        // Increase 50 EXP for gameCreator
+        boolean levelUpdated = memberService.updateMemberLevel(member.getId(), 50);
+        if(levelUpdated) {
+            // If level increased, player can earn 100 credit
+            member.setCredit(member.getCredit() + 100);
+            log.info("Member {} leveled up to level {}", member.getId(), member.getLevel());
+            log.info("Member {} earned credit {}", member.getId(), 100);
+        }
         return game.getId();
     }
 

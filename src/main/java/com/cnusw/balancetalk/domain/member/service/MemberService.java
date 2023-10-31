@@ -31,6 +31,24 @@ public class MemberService {
     private final PasswordEncoder passwordEncoder;
     private final JwtUtil jwtUtil;
 
+    // Calculate & Update member's level
+    public boolean updateMemberLevel(long memberId, long addExp) {
+        Member member = memberRepository.findById(memberId).orElseThrow();
+        long currentLevel = member.getLevel();
+        long currentExp = addExp + member.getExp();
+
+        long requiredExpForLeverUp = (long) Math.pow(2, 4 + currentLevel);
+
+        if(currentExp < requiredExpForLeverUp) {
+            member.setExp(currentExp);
+            return false;
+        } else {
+            member.setLevel(currentLevel + 1);
+            member.setExp(currentExp - requiredExpForLeverUp);
+            return true;
+        }
+    }
+
     /**
      * 1. 요청 객체의 이메일을 통해 이미 존재하는 회원인지 검증한다.
      * 2. 존재하지 않는 회원이면 요청 객체로부터 Member 엔티티를 생성하여 저장한다.
